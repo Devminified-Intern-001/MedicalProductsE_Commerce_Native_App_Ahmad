@@ -10,9 +10,9 @@ import { Header, Icon } from "react-native-elements";
 // import { color } from 'react-native-elements/dist/helpers'
 
 interface UiHeader {
-  leftSource: ImageSourcePropType;
-  rightSource: ImageSourcePropType;
-  title: string;
+  leftSource?: ImageSourcePropType;
+  rightSource?: ImageSourcePropType;
+  title?: string;
 }
 
 const CustomHeader = (props: UiHeader) => {
@@ -21,19 +21,25 @@ const CustomHeader = (props: UiHeader) => {
     <Header
       containerStyle={styles.styleheader}
       leftComponent={
-        <View style={styles.leftImgContainer}>
-          <Image source={leftSource} />
-        </View>
+        leftSource && (
+          <View style={styles.leftImgContainer}>
+            <Image source={leftSource} />
+          </View>
+        )
       }
       centerComponent={
-        <View style={styles.itemContainer}>
-          <Text style={styles.itemTitle}>{title}</Text>
-        </View>
+        title && (
+          <View style={styles.itemContainer}>
+            <Text style={styles.itemTitle}>{title}</Text>
+          </View>
+        )
       }
       rightComponent={
-        <View style={styles.rightImgContainer}>
-          <Image source={rightSource} style={styles.rightImg} />
-        </View>
+        rightSource && (
+          <View style={styles.rightImgContainer}>
+            <Image source={rightSource} style={styles.rightImg} />
+          </View>
+        )
       }
       {...rest}
     />

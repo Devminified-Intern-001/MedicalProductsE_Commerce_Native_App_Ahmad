@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-community/slider": "^4.5.2",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
     "@types/react": "~18.2.79",
@@ -16,7 +17,10 @@
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-native": "0.74.2",
+    "react-native-app-intro-slider": "^4.0.4",
     "react-native-elements": "^3.4.3",
+    "react-native-image-slider-show": "^1.0.3",
+    "react-native-slider": "^0.11.0",
     "react-native-svg": "^15.2.0",
     "react-native-swiper": "^1.6.0",
     "react-native-vector-icons": "^10.1.0",

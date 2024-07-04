@@ -1,7 +1,8 @@
-import { View, TextInput, Text, StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet } from "react-native";
+import { ExtendedView, ExtendedInput } from "../../../../atoms";
 import React, { ReactNode } from "react";
 
-interface UiInput {
+interface UiInputProps {
   children?: ReactNode;
   lefticon?: ReactNode;
   righticon?: ReactNode;
@@ -11,7 +12,7 @@ interface UiInput {
   secureTextEntry?: boolean;
 }
 
-const CustomInput = (props: UiInput) => {
+const CustomInput: React.FC<UiInputProps> = (props: UiInputProps) => {
   const {
     children,
     lefticon,
@@ -23,29 +24,35 @@ const CustomInput = (props: UiInput) => {
     ...rest
   } = props;
   return (
-    <SafeAreaView style={[styles.container, style]} {...rest}>
-      <View style={styles.inputContainer}>
-        {lefticon && <View style={styles.icon}>{lefticon} </View>}
-        <TextInput
+    <ExtendedView style={styles.container}>
+      <ExtendedView style={[styles.inputContainer, style]}>
+        {lefticon && (
+          <ExtendedView style={styles.icon}>{lefticon} </ExtendedView>
+        )}
+        <ExtendedInput
           style={styles.textInput}
           placeholder={placeholder}
           keyboardType={keyboardType}
           secureTextEntry={secureTextEntry}
           {...rest}
         />
-        {righticon && <View style={styles.icon}>{righticon}</View>}
-      </View>
-      {children && <View style={styles.children}>{children}</View>}
-    </SafeAreaView>
+        {righticon && (
+          <ExtendedView style={styles.icon}>{righticon}</ExtendedView>
+        )}
+        {children && (
+          <ExtendedView style={styles.children}>{children}</ExtendedView>
+        )}
+      </ExtendedView>
+    </ExtendedView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "#EEF1F5",
     borderRadius: 50,
-    borderColor: "#ccc",
+    borderColor: "#fff",
     borderWidth: 1,
     width: "80%",
   },
