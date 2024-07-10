@@ -1,59 +1,107 @@
 // import { StatusBar } from "expo-status-bar";
 import { View, StyleSheet } from "react-native";
-import SigninPage from "./pages/SetupProfile/Auth/SigninPage";
-import SignUpPage from "./pages/SetupProfile/Auth/SignupPage";
-import CustomCategoryCard from "./components/molecules/CategoryCard";
-import BottomNavTab from "./components/molecules/BottomNavigationTab";
-import ItemCard from "./components/molecules/ItemCard";
-import CustomCheckBox from "./components/atoms/CheckBox";
-import CustomHeader from "./components/molecules/Header";
-import CustomProfileHeader from "./components/molecules/ProfileHeader";
-import CustomSlider from "./components/atoms/Slider";
-import CustomItemSlideShow from "./components/atoms/ItemSlideShow";
-import CustomCartItem from "./components/molecules/CartItems";
-import CustomDetailsCard from "./components/molecules/DetailsCard";
-import PDetialsForm from "./pages/SetupProfile/PersonalForms/PersonalInfoForm";
-import PersonalDetails from "./pages/SetupProfile/PersonalForms/PersonalDetailsForm";
-import IntroSlider from "./pages/SetupProfile/AppIntroSlider";
-import SpecialOfferSlider from "./components/molecules/SpecialOfferSlider";
-import HomePage from "./pages/Home";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import SigninPage from "./src/pages/SetupProfile/Auth/SigninPage";
+import SignUpPage from "./src/pages/SetupProfile/Auth/SignupPage";
+import CustomCategoryCard from "./src/components/molecules/CategoryCard";
+import BottomNavTab from "./src/components/molecules/BottomNavigationTab";
+import ItemCard from "./src/components/molecules/ItemCard";
+import CustomCheckBox from "./src/components/atoms/CheckBox";
+import CustomHeader from "./src/components/molecules/Header";
+import CustomProfileHeader from "./src/components/molecules/ProfileHeader";
+import CustomSlider from "./src/components/atoms/Slider";
+import CustomItemSlideShow from "./src/components/atoms/ItemSlideShow";
+import CustomCartItem from "./src/components/molecules/CartItems";
+import CustomDetailsCard from "./src/components/molecules/DetailsCard";
+import PDetialsForm from "./src/pages/SetupProfile/PersonalForms/PersonalInfoForm";
+import PersonalDetails from "./src/pages/SetupProfile/PersonalForms/PersonalDetailsForm";
+import IntroSlider from "./src/pages/SetupProfile/AppIntroSlider";
+import SpecialOfferSlider from "./src/components/molecules/SpecialOfferSlider";
+import HomePage from "./src/pages/BottomNavBar/Home/HomePage";
+import CustomCategoriesCard from "./src/components/organisams/CategoriesCard";
+import CustomItemsCard from "./src/components/organisams/ItemsCard";
+import {
+  ExtendedRating,
+  ExtendedSwitch,
+  ExtendedView,
+} from "./src/components/atoms";
+import { itemsCardData } from "./src/data/itemsCardData";
+import { CustomFlexText, CustomSettingsCard } from "./src/components/molecules";
+import ExtendedItemSlide from "./src/components/atoms/ItemSlideShow";
+import {
+  CustomBottomSheet,
+  CustomCartItems,
+  LogoutActionSheet,
+  ProfileSettingCards,
+} from "./src/components/organisams";
+import { itemsCartData } from "./src/data/cartItems";
+import PaymentDetailsPage from "./src/pages/BottomNavBar/Shop/PaymentDetails";
+import Arrow from "./svgs/Arrow";
+import { settingCardData } from "./src/data/settingCardData";
+import Main from "./src/navigation/main";
+import {
+  BagIcon,
+  BellIcon,
+  GreenBellIcon,
+  LocationIcon,
+  LogoutIcon,
+  LoyaltyIcon,
+  ProfileIcon,
+  SettingsIcon,
+  WishlistIcon,
+} from "./svgs";
+import CustomMyProfile from "./src/components/molecules/MyProfile";
+import MyProfilePage from "./src/pages/BottomNavBar/Profile/MyProfile";
+import MyDetailsPage from "./src/pages/BottomNavBar/Profile/MyDetails";
+import NotificationsPage from "./src/pages/BottomNavBar/Profile/Notifications";
+
 export default function App() {
   return (
-    <View style={styles.container}>
-      {/* <StatusBar style="auto" />; */}
-      {/* <SigninPage /> */}
-      {/* <SignUpPage /> */}
-      {/* <PDetialsForm /> */}
-      {/* <PersonalDetails /> */}
-      {/* <IntroSlider /> */}
-      {/* <SpecialOfferSlider /> */}
-      <HomePage />
-      {/* <CustomCategoryCard
+    <>
+      {/* <Main /> */}
+
+      <View style={styles.container}>
+        {/* <StatusBar style="auto" />; */}
+        {/* <SigninPage /> */}
+        {/* <SignUpPage /> */}
+        {/* <PDetialsForm /> */}
+        {/* <PersonalDetails /> */}
+        {/* <IntroSlider /> */}
+        {/* <SpecialOfferSlider /> */}
+        {/* <HomePage /> */}
+        {/* <PaymentDetailsPage /> */}
+        {/* <CustomCategoryCard
         source={require("./assets/fruit2.png")}
         title="Fruits"
       ></CustomCategoryCard> */}
-      {/* <BottomNavTab /> */}
-      {/* <ItemCard
+        {/* <BottomNavTab /> */}
+        {/* <ItemCard
         title="Carrot"
         source={require("./assets/Carrots.png")}
-        itemDescrip="Very fresh and new product."
+        itemDescrip="Cabbage is a vegitable source of fiber."
         itemPrice="50"
         itemQt="1"
+        flexStyle={styles.customFlex}
+        imageStyle={styles.imgStyle}
+        detailsStyle={styles.dtlStyle}
       /> */}
-      {/* <CustomCheckBox title="Sugar Free" /> */}
-      {/* <CustomHeader
+        {/* <CustomCheckBox title="Sugar Free" /> */}
+        {/* <CustomHeader
         leftSource={require("./assets/arrow.png")}
         title="Vegitables"
         rightSource={require("./assets/menu.png")}
       /> */}
-      {/* <CustomProfileHeader
+        {/* <ExtendedView>
+        <CustomItemsCard cardData={itemsCardData} />
+      </ExtendedView> */}
+        {/* <CustomProfileHeader
         topTitle="Hi,James!"
         bottomTitle="What would you buy today?"
         rightSource={require("./assets/ProfileImg.png")}
       /> */}
-      {/* <CustomSlider /> */}
-      {/* <CustomItemSlideShow /> */}
-      {/* <CustomCartItem
+        {/* <CustomSlider /> */}
+        {/* <CustomItemSlideShow /> */}
+        {/* <CustomCartItem
         itemTitle="Carrot"
         priceTitle="$3.45"
         newPriceTitle="$3.75"
@@ -61,13 +109,41 @@ export default function App() {
         minusSource={require("./assets/minus.png")}
         addSource={require("./assets/add.png")}
       /> */}
-      {/* <CustomDetailsCard
+        {/* <CustomDetailsCard
         leftSource={require("./assets/bag.png")}
-        titleText="Your order has arrived"
+        titleText="My Details"
         detailsText="Lorem Ipsum is simply dummy text."
-        timeDuration="24h"
+        style={styles.profSetting}
+        timeDuration={<Arrow />}
+        titleStyle={styles.titleStyle}
+        rightContentStyle={styles.rightContentStyle}
       /> */}
-    </View>
+
+        {/* <ProfileSettingCards settingsCardData={settingCardData} /> */}
+
+        {/* <CustomFlexText title="Filter" textValue={<ExtendedSwitch />} /> */}
+        {/* <ExtendedSwitch /> */}
+        {/* <ExtendedRating /> */}
+        {/* <CustomCartItems cartData={itemsCartData} /> */}
+        {/* <GestureHandlerRootView>
+        <PaymentDetailsPage />
+      </GestureHandlerRootView> */}
+        {/* <ExtendedView style={styles.imgContainer}>
+          <CustomMyProfile
+            imgSource={require("./assets/myProfileImg.png")}
+            profileName="James Jones"
+            nameTag="@jamesjones"
+            profileNameStyle={styles.profileNameStyle}
+            nameTagStyle={styles.nameTagStyle}
+          />
+        </ExtendedView> */}
+        {/* <MyProfilePage /> */}
+        {/* <MyDetailsPage /> */}
+        {/* <NotificationsPage /> */}
+        {/* <LogoutActionSheet /> */}
+        <Main />
+      </View>
+    </>
   );
 }
 
@@ -77,5 +153,23 @@ const styles = StyleSheet.create({
     // backgroundColor: "#fff",
     // alignItems: "center",
     // justifyContent: "center",
+    // padding: 22,
+  },
+  imgContainer: {
+    borderWidth: 2,
+    borderColor: "#111",
+  },
+  profileNameStyle: {
+    fontSize: 18,
+    fontWeight: "700",
+    marginTop: 10,
+    alignSelf: "center",
+  },
+  nameTagStyle: {
+    fontSize: 12,
+    fontWeight: "400",
+    marginTop: 6,
+    alignSelf: "center",
+    color: "#9B9B9B",
   },
 });
