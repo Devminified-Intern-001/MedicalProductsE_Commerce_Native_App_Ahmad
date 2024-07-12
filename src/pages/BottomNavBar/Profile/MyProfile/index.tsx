@@ -87,6 +87,8 @@ const styles = StyleSheet.create({
   },
   imgSourceStyle: {
     alignSelf: "center",
+    height: 96,
+    width: 96,
   },
   profileNameStyle: {
     fontSize: 18,

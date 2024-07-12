@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
     fontSize: 8,
     color: "#9B9B9B",
     marginTop: "68%",
+    marginLeft: 2,
   },
   moreButton: {
     width: 90,

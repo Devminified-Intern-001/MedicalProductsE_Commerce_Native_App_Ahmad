@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 import {
   ExtendedView,
   ExtendedText,
-  ExtendedTouchableOpacity,
   ExtendedCheckBox,
   ExtendedScrollView,
 } from "../../../../components/atoms";
@@ -11,13 +10,16 @@ import {
   CustomButton,
   AboutSection,
 } from "../../../../components/molecules";
-import React from "react";
+import React, { useState } from "react";
 import DropDownArrow from "../../../../../svgs/DropDownArrow";
 import { useNavigation } from "@react-navigation/native";
 import { BasicLayout } from "../../../../layout";
 
 const PDetialsForm = () => {
   const navigation: any = useNavigation();
+  const [selectedGender, setSelectedGender] = useState(null);
+  const genderOptions = ["Male", "Female", "Other"];
+
   return (
     <BasicLayout>
       <ExtendedScrollView style={styles.scrollContainer}>
@@ -31,108 +33,103 @@ const PDetialsForm = () => {
           <ExtendedView style={styles.reviewParagraph}>
             <ExtendedText style={styles.reviewText}>
               Your answers to the following questions are treated as personal
-              information according to our
-            </ExtendedText>
-
-            <ExtendedTouchableOpacity>
-              <ExtendedText style={styles.highlightText}>
-                Privacy Policy.
+              information according to our{" "}
+              <ExtendedText style={styles.highlightWords}>
+                Privacy Policy
               </ExtendedText>
-            </ExtendedTouchableOpacity>
-            <ExtendedText style={styles.reviewText}>
-              To protect your privacy the information used to generate these
+              . To protect your privacy the information used to generate these
               insights is de-identified, aggregated, and analysed on a
               no-name-basic.
             </ExtendedText>
           </ExtendedView>
 
-          <ExtendedView>
-            <ExtendedText style={styles.userText}>1. Your email</ExtendedText>
-          </ExtendedView>
-          <CustomInput
-            placeholder="muhammadahmad@email.com"
-            keyboardType="email-address"
-          ></CustomInput>
+          <ExtendedView style={styles.detailsContainer}>
+            <ExtendedView style={styles.spacing}>
+              <ExtendedText style={styles.userText}>1. Your email</ExtendedText>
+            </ExtendedView>
+            <CustomInput
+              placeholder="muhammadahmad@email.com"
+              keyboardType="email-address"
+            ></CustomInput>
 
-          <ExtendedView>
-            <ExtendedText style={styles.userText}>
-              2. What's bring you here?
-            </ExtendedText>
-          </ExtendedView>
-          <CustomInput
-            placeholder="I have / had this condition"
-            keyboardType="default"
-            righticon={<DropDownArrow />}
-          ></CustomInput>
+            <ExtendedView style={styles.spacing}>
+              <ExtendedText style={styles.userText}>
+                2. What's bring you here?
+              </ExtendedText>
+            </ExtendedView>
+            <CustomInput
+              placeholder="I have / had this condition"
+              keyboardType="default"
+              righticon={<DropDownArrow />}
+            ></CustomInput>
 
-          <ExtendedView>
-            <ExtendedText style={styles.userText}>
-              3. How old are you?
-            </ExtendedText>
-          </ExtendedView>
-          <CustomInput placeholder="23" keyboardType="numeric"></CustomInput>
+            <ExtendedView style={styles.spacing}>
+              <ExtendedText style={styles.userText}>
+                3. How old are you?
+              </ExtendedText>
+            </ExtendedView>
+            <CustomInput placeholder="23" keyboardType="numeric"></CustomInput>
 
-          <ExtendedView>
-            <ExtendedText style={styles.userText}>
-              3. How old are you?
-            </ExtendedText>
-          </ExtendedView>
-          <CustomInput placeholder="23" keyboardType="numeric"></CustomInput>
+            <ExtendedView style={styles.spacing}>
+              <ExtendedText style={styles.userText}>
+                4. Your sex at birth
+              </ExtendedText>
+            </ExtendedView>
+            <ExtendedView style={styles.checkBox}>
+              {genderOptions.map((gender) => (
+                <ExtendedCheckBox
+                  key={gender}
+                  title={gender}
+                  checked={selectedGender === gender}
+                  onPress={() => setSelectedGender(gender)}
+                />
+              ))}
+            </ExtendedView>
 
-          <ExtendedView>
-            <ExtendedText style={styles.userText}>
-              4. Your sex at birth
-            </ExtendedText>
-          </ExtendedView>
-          <ExtendedView>
-            <ExtendedCheckBox title="Male"></ExtendedCheckBox>
-            <ExtendedCheckBox title="Female"></ExtendedCheckBox>
-            <ExtendedCheckBox title="Other"></ExtendedCheckBox>
+            <ExtendedView style={styles.spacing}>
+              <ExtendedText style={styles.userText}>
+                5. Where do you live?
+              </ExtendedText>
+            </ExtendedView>
+            <CustomInput
+              placeholder="California"
+              keyboardType="default"
+            ></CustomInput>
+
+            <ExtendedView style={styles.spacing}>
+              <ExtendedText style={styles.userText}>
+                6. If any, what tests / indicators are you following on an
+                ongoing basic?
+              </ExtendedText>
+            </ExtendedView>
+            <CustomInput
+              placeholder="I have some..."
+              keyboardType="default"
+            ></CustomInput>
+
+            <ExtendedView style={styles.spacing}>
+              <ExtendedText style={styles.userText}>
+                7. If any, what tests / indicators are you following?
+              </ExtendedText>
+            </ExtendedView>
+            <CustomInput
+              placeholder="I have some..."
+              keyboardType="default"
+            ></CustomInput>
+
+            <ExtendedView style={styles.spacing}>
+              <ExtendedText style={styles.userText}>
+                8. How much time has passed ?
+              </ExtendedText>
+            </ExtendedView>
+            <CustomInput placeholder="23" keyboardType="numeric"></CustomInput>
+            <CustomButton
+              title="Submit"
+              style={styles.sigin}
+              onPress={() => navigation.navigate("PersonalDetails")}
+            />
           </ExtendedView>
 
-          <ExtendedView>
-            <ExtendedText style={styles.userText}>
-              5. Where do you live?
-            </ExtendedText>
-          </ExtendedView>
-          <CustomInput
-            placeholder="California"
-            keyboardType="default"
-          ></CustomInput>
-
-          <ExtendedView>
-            <ExtendedText style={styles.userText}>
-              6. If any, what tests / indicators are you following on an ongoing
-              basic?
-            </ExtendedText>
-          </ExtendedView>
-          <CustomInput
-            placeholder="I have some..."
-            keyboardType="default"
-          ></CustomInput>
-
-          <ExtendedView>
-            <ExtendedText style={styles.userText}>
-              7. If any, what tests / indicators are you following?
-            </ExtendedText>
-          </ExtendedView>
-          <CustomInput
-            placeholder="I have some..."
-            keyboardType="default"
-          ></CustomInput>
-
-          <ExtendedView>
-            <ExtendedText style={styles.userText}>
-              8. How much time has passed ?
-            </ExtendedText>
-          </ExtendedView>
-          <CustomInput placeholder="23" keyboardType="numeric"></CustomInput>
-
-          <CustomButton
-            title="Submit"
-            style={styles.sigin}
-            onPress={() => navigation.navigate("PersonalDetails")}
-          />
           <AboutSection style={styles.aboutSection} />
         </ExtendedView>
       </ExtendedScrollView>
@@ -146,8 +143,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    borderWidth: 2,
-    borderColor: "#111",
   },
   container: {
     flex: 1,
@@ -158,47 +153,50 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   welcome: {
-    marginTop: "22%",
-    borderWidth: 2,
-    borderColor: "#111",
-    width: "90%",
+    marginTop: "14%",
+    width: "76%",
   },
   welcomeText: {
     fontSize: 22,
     fontWeight: "700",
   },
   reviewParagraph: {
-    flexDirection: "column",
-    flexWrap: "nowrap",
-    width: "90%",
-    height: 100,
-    borderWidth: 2,
-    borderColor: "#111",
-    textAlign: "justify",
-    position: "relative",
+    width: "76%",
+    height: 80,
+    justifyContent: "center",
+    marginTop: 4,
   },
   reviewText: {
     fontSize: 12,
+    textAlign: "justify",
   },
-  highlightText: {
-    fontSize: 12,
-    color: "#FBD54E",
-    position: "absolute",
-    alignSelf: "flex-end",
-    borderWidth: 2,
-    borderColor: "#111",
-    bottom: 10,
+  highlightWords: {
+    color: "#FFCC00",
   },
   userText: {
-    marginRight: "46%",
-    width: 80,
+    width: 234,
     fontSize: 13,
+    alignSelf: "flex-start",
+  },
+  detailsContainer: {
+    width: "98%",
+    alignItems: "center",
+  },
+  spacing: {
+    marginTop: 24,
+    marginBottom: 10,
+  },
+  checkBox: {
+    flexDirection: "row",
+    width: "76%",
   },
   sigin: {
-    marginTop: "6%",
+    marginTop: 30,
+    height: 50,
+    width: "78%",
   },
   aboutSection: {
-    marginTop: "22%",
+    marginBottom: "7%",
   },
 });
 export default PDetialsForm;

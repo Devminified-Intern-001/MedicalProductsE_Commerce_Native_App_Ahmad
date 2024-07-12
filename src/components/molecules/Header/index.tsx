@@ -7,16 +7,18 @@ import {
 } from "react-native";
 import React from "react";
 import { Header, Icon } from "react-native-elements";
+import { ExtendedTouchableOpacity } from "../../atoms";
 // import { color } from 'react-native-elements/dist/helpers'
 
 interface UiHeader {
   leftSource?: ImageSourcePropType;
   rightSource?: ImageSourcePropType;
   title?: string;
+  onPress?: () => void;
 }
 
 const CustomHeader = (props: UiHeader) => {
-  const { leftSource, rightSource, title, ...rest } = props;
+  const { leftSource, rightSource, title, onPress } = props;
   return (
     <Header
       containerStyle={styles.styleheader}
@@ -37,11 +39,12 @@ const CustomHeader = (props: UiHeader) => {
       rightComponent={
         rightSource && (
           <View style={styles.rightImgContainer}>
-            <Image source={rightSource} style={styles.rightImg} />
+            <ExtendedTouchableOpacity onPress={onPress}>
+              <Image source={rightSource} style={styles.rightImg} />
+            </ExtendedTouchableOpacity>
           </View>
         )
       }
-      {...rest}
     />
   );
 };

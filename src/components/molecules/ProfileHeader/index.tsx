@@ -8,10 +8,12 @@ interface UiProfileHeader {
   rightSource: ImageSourcePropType | React.ReactNode;
   topTitle: string;
   bottomTitle: string;
+  backgroundColor?: string;
 }
 
 const CustomProfileHeader = (props: UiProfileHeader) => {
-  const { rightSource, topTitle, bottomTitle, ...rest } = props;
+  const { rightSource, topTitle, bottomTitle, backgroundColor, ...rest } =
+    props;
   return (
     <Header
       containerStyle={styles.styleheader}
@@ -24,7 +26,12 @@ const CustomProfileHeader = (props: UiProfileHeader) => {
         </ExtendedView>
       }
       rightComponent={
-        <ExtendedView style={styles.rightImgContainer}>
+        <ExtendedView
+          style={[
+            styles.rightImgContainer,
+            { backgroundColor: backgroundColor },
+          ]}
+        >
           {React.isValidElement(rightSource) ? (
             rightSource
           ) : (

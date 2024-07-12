@@ -12,7 +12,11 @@ interface UiItemCard extends CardProps {
   source: ImageSourcePropType;
   flexStyle?: object;
   imageStyle?: object;
+  imgCoverStyle?: object;
   detailsStyle?: object;
+  itemTitle?: object;
+  description?: object;
+  priceDetail?: object;
   cardLayoutStyle?: object;
 }
 
@@ -25,8 +29,12 @@ const ItemCard = (props: UiItemCard) => {
     flexStyle,
     imageStyle,
     detailsStyle,
+    imgCoverStyle,
     cardLayoutStyle,
     itemDescrip,
+    itemTitle,
+    description,
+    priceDetail,
     children,
     ...rest
   } = props;
@@ -37,15 +45,20 @@ const ItemCard = (props: UiItemCard) => {
     >
       <ExtendedView>
         <ExtendedView style={[styles.flex, flexStyle]}>
-          <ExtendedView style={[styles.itemImage, imageStyle]}>
-            <Image source={source} style={styles.imageStyle}></Image>
+          <ExtendedView style={[styles.itemImage, imgCoverStyle]}>
+            <Image
+              source={source}
+              style={[styles.imageStyle, imageStyle]}
+            ></Image>
           </ExtendedView>
           <ExtendedView style={[styles.itemDetails, detailsStyle]}>
-            <ExtendedText style={styles.itemTitle}>{title}</ExtendedText>
-            <ExtendedText style={styles.description}>
+            <ExtendedText style={[styles.itemTitle, itemTitle]}>
+              {title}
+            </ExtendedText>
+            <ExtendedText style={[styles.description, description]}>
               {itemDescrip}
             </ExtendedText>
-            <ExtendedView style={styles.priceDetail}>
+            <ExtendedView style={[styles.priceDetail, priceDetail]}>
               <ExtendedText style={styles.itPrice}>{itemPrice} $</ExtendedText>
               {itemQt && (
                 <ExtendedText style={styles.itQuant}>

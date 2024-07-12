@@ -33,6 +33,7 @@ import {
   CustomCartItems,
   LogoutActionSheet,
   ProfileSettingCards,
+  ItemsFilter,
 } from "./src/components/organisams";
 import { itemsCartData } from "./src/data/cartItems";
 import PaymentDetailsPage from "./src/pages/BottomNavBar/Shop/PaymentDetails";
@@ -54,6 +55,9 @@ import CustomMyProfile from "./src/components/molecules/MyProfile";
 import MyProfilePage from "./src/pages/BottomNavBar/Profile/MyProfile";
 import MyDetailsPage from "./src/pages/BottomNavBar/Profile/MyDetails";
 import NotificationsPage from "./src/pages/BottomNavBar/Profile/Notifications";
+import ProductsPage from "./src/pages/BottomNavBar/Home/ProductsPage";
+import WalletPage from "./src/pages/BottomNavBar/Home/WalletPage";
+import CartItemPage from "./src/pages/BottomNavBar/Shop/CartItem";
 
 export default function App() {
   return (
@@ -69,7 +73,11 @@ export default function App() {
         {/* <IntroSlider /> */}
         {/* <SpecialOfferSlider /> */}
         {/* <HomePage /> */}
+        {/* <ProductsPage /> */}
+        {/* <WalletPage /> */}
         {/* <PaymentDetailsPage /> */}
+        {/* <ItemsFilter /> */}
+        {/* <CartItemPage /> */}
         {/* <CustomCategoryCard
         source={require("./assets/fruit2.png")}
         title="Fruits"
@@ -118,16 +126,15 @@ export default function App() {
         titleStyle={styles.titleStyle}
         rightContentStyle={styles.rightContentStyle}
       /> */}
-
         {/* <ProfileSettingCards settingsCardData={settingCardData} /> */}
-
         {/* <CustomFlexText title="Filter" textValue={<ExtendedSwitch />} /> */}
         {/* <ExtendedSwitch /> */}
         {/* <ExtendedRating /> */}
         {/* <CustomCartItems cartData={itemsCartData} /> */}
-        {/* <GestureHandlerRootView>
-        <PaymentDetailsPage />
-      </GestureHandlerRootView> */}
+        {/* <GestureHandlerRootView> */}
+        {/* <PaymentDetailsPage /> */}
+        {/* <CustomBottomSheet /> */}
+        {/* </GestureHandlerRootView> */}
         {/* <ExtendedView style={styles.imgContainer}>
           <CustomMyProfile
             imgSource={require("./assets/myProfileImg.png")}
@@ -139,9 +146,9 @@ export default function App() {
         </ExtendedView> */}
         {/* <MyProfilePage /> */}
         {/* <MyDetailsPage /> */}
-        {/* <NotificationsPage /> */}
+        <NotificationsPage />
         {/* <LogoutActionSheet /> */}
-        <Main />
+        {/* <Main /> */}
       </View>
     </>
   );

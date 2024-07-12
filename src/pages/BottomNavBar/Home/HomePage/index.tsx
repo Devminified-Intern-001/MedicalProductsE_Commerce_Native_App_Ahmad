@@ -22,10 +22,7 @@ const cardData = [
 
 const HomePage = () => {
   return (
-    // <ExtendedScrollView style={styles.scrollContainer}>
     <BasicLayout>
-      {/* <ExtendedText>ok</ExtendedText> */}
-      {/* <SafeAreaView style={styles.safeArea}> */}
       <ExtendedView style={styles.pageLayout}>
         <ExtendedView style={styles.welcome}>
           <CustomProfileHeader
@@ -47,7 +44,7 @@ const HomePage = () => {
         </ExtendedView>
 
         <ExtendedView style={styles.categoryCardContainer}>
-          <CustomCategoriesCard style={styles.cards} cardData={cardData} />
+          <CustomCategoriesCard cardData={cardData} />
         </ExtendedView>
 
         <ExtendedView style={styles.recentShopTitle}>
@@ -65,7 +62,6 @@ const HomePage = () => {
             flexStyle={styles.customFlex}
             imageStyle={styles.imgStyle}
             detailsStyle={styles.dtlStyle}
-            cardLayoutStyle={styles.recentCardLayout}
           />
         </ExtendedView>
       </ExtendedView>
@@ -75,22 +71,17 @@ const HomePage = () => {
 };
 export default HomePage;
 const styles = StyleSheet.create({
-  safeArea: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   pageLayout: {
     flex: 1,
     gap: 10,
     backgroundColor: "#fff",
     marginTop: 10,
+    height: "100%",
   },
   welcome: {
     marginTop: 20,
   },
   searchField: {
-    marginTop: 64,
     height: 30,
     left: 34,
     zIndex: 1,
@@ -103,14 +94,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 22,
-    // left: 4,
     marginTop: 30,
     height: 100,
     width: 370,
     right: 4,
-  },
-  cards: {
-    // marginHorizontal: 10,
   },
   recentShopTitle: {
     flexDirection: "row",
@@ -124,24 +111,16 @@ const styles = StyleSheet.create({
     width: 244,
   },
   itemCardStyle: {
-    marginTop: 150,
     alignItems: "center",
-  },
-  recentCardLayout: {
-    minWidth: 286,
-    bottom: 170,
-    minHeight: 146,
+    bottom: 14,
   },
   customFlex: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    // height: 134,
-    bottom: 0,
   },
   imgStyle: {
     marginBottom: 0,
-    width: 120,
   },
   dtlStyle: {
     paddingLeft: 16,

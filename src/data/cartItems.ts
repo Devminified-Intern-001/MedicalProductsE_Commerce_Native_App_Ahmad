@@ -17,4 +17,22 @@ export const itemsCartData = [
     priceTitle: "$3.5",
     newPriceTitle: "$3.0",
   },
+  {
+    itemTitle: "Turnip",
+    leftSource: require("../../assets/turnip.png"),
+    priceTitle: "$4.5",
+    newPriceTitle: "$3.5",
+  },
+  {
+    itemTitle: "Cabbage",
+    leftSource: require("../../assets/cabbage.png"),
+    priceTitle: "$4.5",
+    newPriceTitle: "$3.7",
+  },
+  {
+    itemTitle: "Tomato",
+    leftSource: require("../../assets/tomato.png"),
+    priceTitle: "$3.5",
+    newPriceTitle: "$3.0",
+  },
 ];

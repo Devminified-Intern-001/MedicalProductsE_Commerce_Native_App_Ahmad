@@ -13,6 +13,8 @@ interface UiDetailsCard {
   titleStyle?: object;
   detailsTextStyle?: object;
   rightContentStyle?: object;
+  backgroundColor?: string;
+  imgStyle?: object;
 }
 
 const CustomDetailsCard = (props: UiDetailsCard) => {
@@ -26,6 +28,8 @@ const CustomDetailsCard = (props: UiDetailsCard) => {
     titleStyle,
     detailsTextStyle,
     rightContentStyle,
+    backgroundColor,
+    imgStyle,
     ...rest
   } = props;
 
@@ -35,7 +39,13 @@ const CustomDetailsCard = (props: UiDetailsCard) => {
         containerStyle={styles.styleheader}
         leftComponent={
           leftSource && (
-            <ExtendedView style={styles.leftImgContainer}>
+            <ExtendedView
+              style={[
+                styles.leftImgContainer,
+                { backgroundColor: backgroundColor },
+                imgStyle,
+              ]}
+            >
               {leftSource}
             </ExtendedView>
           )
@@ -69,7 +79,6 @@ const styles = StyleSheet.create({
   cardContainer: {
     height: 84,
     justifyContent: "center",
-    // backgroundColor: "rgba(251, 213, 78, 0.29)",
     alignItems: "center",
     marginHorizontal: 24,
   },

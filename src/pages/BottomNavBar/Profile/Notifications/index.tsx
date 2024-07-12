@@ -44,6 +44,7 @@ const NotificationsPage = () => {
                 titleText={data.titleText}
                 detailsText={data.detailsText}
                 timeDuration={data.timeDuration}
+                backgroundColor={data.backgroudColor}
               />
             ))}
           </ExtendedView>
@@ -57,6 +58,7 @@ const NotificationsPage = () => {
                 titleText={data.titleText}
                 detailsText={data.detailsText}
                 timeDuration={data.timeDuration}
+                backgroundColor={data.backgroudColor}
               />
             ))}
           </ExtendedView>
@@ -70,6 +72,7 @@ const NotificationsPage = () => {
                 titleText={data.titleText}
                 detailsText={data.detailsText}
                 timeDuration={data.timeDuration}
+                backgroundColor={data.backgroudColor}
               />
             ))}
           </ExtendedView>

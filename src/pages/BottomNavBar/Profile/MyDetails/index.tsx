@@ -140,10 +140,10 @@ export default MyDetailsPage;
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    width: 300,
+    width: "100%",
   },
   hearderStyle: {
-    marginTop: 30,
+    marginTop: 20,
   },
   imgSourceStyle: {
     alignSelf: "center",

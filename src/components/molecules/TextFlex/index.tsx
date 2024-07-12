@@ -6,13 +6,14 @@ interface UiFlexText {
   title: string;
   textValue: string | React.ReactNode;
   titleStyle?: object;
+  flexContainer?: object;
   textValueStyle?: object;
 }
 
 const CustomFlexText: React.FC<UiFlexText> = (props) => {
-  const { title, textValue, titleStyle, textValueStyle } = props;
+  const { title, textValue, titleStyle, flexContainer, textValueStyle } = props;
   return (
-    <ExtendedView style={styles.cardTitle}>
+    <ExtendedView style={[styles.cardTitle, flexContainer]}>
       <ExtendedText style={[styles.titleText, titleStyle]}>
         {title}
       </ExtendedText>

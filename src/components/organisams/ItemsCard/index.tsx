@@ -31,6 +31,11 @@ const CustomItemsCard = ({ cardData }: CategoriesCardRowProps) => {
             itemQt={data.itemQt}
             cardLayoutStyle={styles.cardLayout}
             flexStyle={styles.cardContainer}
+            imageStyle={styles.image}
+            imgCoverStyle={styles.imgCover}
+            itemTitle={styles.itemTitle}
+            description={styles.description}
+            priceDetail={styles.priceDetail}
           />
         ))}
       </ExtendedView>
@@ -46,12 +51,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cardLayout: {
-    minHeight: 240,
-    minWidth: 130,
-    maxWidth: 160,
+    minHeight: 190,
+    minWidth: 100,
+    maxWidth: 130,
+    paddingBottom: "6%",
+    marginVertical: "8%",
   },
-  cardContainer: {
-    marginBottom: 30,
+  cardContainer: {},
+  image: {
+    height: 44,
+    width: 44,
+    resizeMode: "cover",
+  },
+  imgCover: {
+    width: 102,
+    height: 80,
+  },
+  itemTitle: {
+    marginLeft: "9%",
+    fontSize: 14,
+    bottom: 6,
+  },
+  description: {
+    marginLeft: "9%",
+    fontSize: 10,
+    bottom: 6,
+  },
+  priceDetail: {
+    bottom: 22,
+    width: 102,
+    alignSelf: "center",
+    justifyContent: "space-between",
   },
 });
 

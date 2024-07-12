@@ -11,6 +11,9 @@ import GreenBellIcon from "./GreenBellIcon";
 import CalenderIcon from "./Calender";
 import EyeIcon from "./Eye";
 import WalletIcon from "./Wallet";
+import ProfileImgIcon from "./ProfileImg";
+import ThumbIcon from "./ThumbIcon";
+import TickIcon from "./TickIcon";
 export {
   ProfileIcon,
   Arrow,
@@ -25,4 +28,7 @@ export {
   CalenderIcon,
   EyeIcon,
   WalletIcon,
+  ProfileImgIcon,
+  ThumbIcon,
+  TickIcon,
 };

@@ -7,13 +7,8 @@ import {
 } from "../../../components/atoms";
 import { CustomButton } from "../../../components/molecules";
 import AppIntroSlider from "react-native-app-intro-slider";
-import SigninPage from "../Auth/SigninPage";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SignUpPage from "../Auth/SignupPage";
-// import ActionSheet from "../../../components/molecules/IntroSlider/ActionSheet";
+import { useNavigation } from "@react-navigation/native";
 
-// const [nextSlide, setNextSlide] = useState(1);
 const slides = [
   {
     key: 1,
@@ -39,29 +34,32 @@ const slides = [
 ];
 
 const IntroSlider = () => {
-  const [showRealApp, setShowRealApp] = useState(false);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const sliderRef = useRef(null);
-  const Stack = createNativeStackNavigator();
 
   const renderItem = ({ item }) => {
+    const parts = item.text.split(item.highlightedWord);
+
     return (
       <ExtendedView style={styles.slide}>
         <Image source={item.image} style={styles.backImage} />
-        {/* <ActionSheet text={item.text} highlightedWord={item.highlightedWord} /> */}
-
         <ExtendedView style={styles.actionSheet}>
           <ExtendedView>
             <ExtendedText style={styles.text}>
-              {/* {parts[0]} */}
+              {parts[0]}
               <ExtendedText style={styles.highlightedText}>
-                {/* {highlightedWord} */}
+                {item.highlightedWord}
               </ExtendedText>
-              {/* {parts[1]} */}
+              {parts[1]}
             </ExtendedText>
           </ExtendedView>
           <ExtendedView>
-            <ExtendedTouchableOpacity style={styles.skipContainer}>
+            <ExtendedTouchableOpacity
+              style={styles.skipContainer}
+              onPress={() => {
+                onDone();
+              }}
+            >
               <ExtendedText style={styles.skipText}>Skip</ExtendedText>
             </ExtendedTouchableOpacity>
           </ExtendedView>
