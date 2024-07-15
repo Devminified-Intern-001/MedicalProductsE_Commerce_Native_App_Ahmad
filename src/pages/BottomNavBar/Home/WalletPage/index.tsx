@@ -9,24 +9,27 @@ import { BasicLayout } from "../../../../layout";
 import BellIcon from "../../../../../svgs/BellIcon";
 import { TickIcon } from "../../../../../svgs";
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import Routes from "../../../../routes";
 
 const WalletPage = () => {
   const [activeButton, setActiveButton] = useState("Cards");
+  const navigation: any = useNavigation();
   const handleButtonPress = (button) => {
     setActiveButton(button);
   };
   return (
-    <BasicLayout>
+    <ExtendedView>
+      <ExtendedView style={styles.header}>
+        <CustomProfileHeader
+          topTitle="Hi,James!"
+          bottomTitle="Check your wallet status"
+          rightSource={<BellIcon />}
+          backgroundColor="#FBD54E"
+          onArrowPress={() => navigation.navigate(Routes.NotificationsPage)}
+        />
+      </ExtendedView>
       <ExtendedView style={styles.pageContainer}>
-        <ExtendedView style={styles.header}>
-          <CustomProfileHeader
-            topTitle="Hi,James!"
-            bottomTitle="Check your wallet status"
-            rightSource={<BellIcon />}
-            backgroundColor="#FBD54E"
-          />
-        </ExtendedView>
-
         <ExtendedView style={styles.btnFlex}>
           <CustomButton
             title="Cards"
@@ -75,27 +78,25 @@ const WalletPage = () => {
       <ExtendedView style={styles.cardBtn}>
         <CustomButton title="Add card" style={styles.addCardBtn} />
       </ExtendedView>
-    </BasicLayout>
+    </ExtendedView>
   );
 };
 export default WalletPage;
 
 const styles = StyleSheet.create({
-  pageContainer: {
-    // width: "90%",
-    height: "100%",
-    flex: 1,
+  header: {
     justifyContent: "center",
     alignItems: "center",
-    // paddingVertical: "6%",
-    paddingBottom: "6%",
+    paddingTop: "15%",
   },
-  header: {
-    marginTop: "4%",
+  pageContainer: {
+    justifyContent: "center",
+    alignItems: "center",
   },
+
   btnFlex: {
     flexDirection: "row",
-    marginVertical: "6%",
+    marginBottom: "8%",
     justifyContent: "flex-start",
     alignItems: "flex-start",
     width: "74%",
@@ -117,14 +118,15 @@ const styles = StyleSheet.create({
     left: 114,
   },
   detailsCard: {
-    marginTop: "5%",
-    marginBottom: "11%",
+    marginTop: "2%",
+    marginBottom: "10%",
   },
   cardDetails: {
     backgroundColor: "#F9F9F9",
     height: 66,
     marginHorizontal: "11%",
     borderRadius: 19,
+    paddingBottom: "10%",
   },
   details: {
     marginLeft: 70,
@@ -143,19 +145,17 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   imgContainer: {
-    height: "37%",
-    marginBottom: "30%",
+    height: "39%",
   },
   cardBtn: {
     width: "84%",
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    bottom: "18%",
+    marginTop: "12%",
   },
   addCardBtn: {
     width: 280,
     height: 60,
-    // marginBottom: "30%",
   },
 });

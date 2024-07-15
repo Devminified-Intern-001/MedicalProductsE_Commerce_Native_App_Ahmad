@@ -1,22 +1,28 @@
+import React, { useState } from "react";
 import {
-  View,
   StyleSheet,
-  Text,
-  ImageSourcePropType,
   Image,
   TouchableOpacity,
+  ImageSourcePropType,
 } from "react-native";
-import React, { ReactNode, useState } from "react";
 import { Header } from "react-native-elements";
+import { ExtendedView, ExtendedText } from "../../atoms";
+import {
+  GestureHandlerRootView,
+  Swipeable,
+} from "react-native-gesture-handler";
+import Icon from "react-native-vector-icons/Ionicons";
 
 interface UiCartItem {
-  children?: ReactNode;
+  children?: React.ReactNode;
   leftSource: ImageSourcePropType;
   itemTitle: string;
   priceTitle: string;
   newPriceTitle?: string;
   minusSource: ImageSourcePropType;
   addSource: ImageSourcePropType;
+  backgroundColor?: string;
+  onDelete: () => void;
 }
 
 const CustomCartItem = (props: UiCartItem) => {
@@ -33,69 +39,91 @@ const CustomCartItem = (props: UiCartItem) => {
   }
 
   const {
-    children,
     leftSource,
     itemTitle,
     priceTitle,
     newPriceTitle,
     minusSource,
     addSource,
-    ...rest
+    backgroundColor,
+    onDelete,
   } = props;
 
   const priceTextStyle = [
     styles.priceTextStyle,
     newPriceTitle
-      ? { textDecorationLine: "line-through" as const }
+      ? { textDecorationLine: "line-through" }
       : { fontWeight: "700" },
   ];
 
+  const renderRightActions = () => (
+    <TouchableOpacity style={styles.deleteButton} onPress={onDelete}>
+      <Icon name="trash-outline" size={24} color="red" />
+    </TouchableOpacity>
+  );
+
   return (
-    <View style={styles.cartLayout}>
-      <Header
-        containerStyle={styles.styleheader}
-        leftComponent={
-          <View style={styles.leftImgContainer}>
-            <Image source={leftSource} style={styles.leftImg} />
-          </View>
-        }
-        centerComponent={
-          <View style={styles.centerContainer}>
-            <Text style={styles.itemTextStyle}>{itemTitle}</Text>
-            <View style={styles.priceContainer}>
-              <Text style={priceTextStyle as any}>{priceTitle}</Text>
-              {newPriceTitle && (
-                <Text style={styles.newPriceTextStyle}>{newPriceTitle}</Text>
-              )}
-            </View>
-          </View>
-        }
-        rightComponent={
-          <View style={styles.rightImgContainer}>
-            <TouchableOpacity onPress={decrementCount}>
-              <Image source={minusSource} style={styles.minusImg} />
-            </TouchableOpacity>
-            <Text>{counter}</Text>
-            <TouchableOpacity onPress={incrementCount}>
-              <Image source={addSource} style={styles.addImg} />
-            </TouchableOpacity>
-          </View>
-        }
-        {...rest}
-      />
-    </View>
+    <GestureHandlerRootView>
+      <Swipeable renderRightActions={renderRightActions}>
+        <ExtendedView style={styles.cartLayout}>
+          <Header
+            containerStyle={styles.styleheader}
+            leftComponent={
+              <ExtendedView
+                style={[
+                  styles.leftImgContainer,
+                  { backgroundColor: backgroundColor },
+                ]}
+              >
+                <Image source={leftSource} style={styles.leftImg} />
+              </ExtendedView>
+            }
+            centerComponent={
+              <ExtendedView style={styles.centerContainer}>
+                <ExtendedText style={styles.itemTextStyle}>
+                  {itemTitle}
+                </ExtendedText>
+                <ExtendedView style={styles.priceContainer}>
+                  <ExtendedText style={priceTextStyle as any}>
+                    {priceTitle}
+                  </ExtendedText>
+                  {newPriceTitle && (
+                    <ExtendedText style={styles.newPriceTextStyle}>
+                      {newPriceTitle}
+                    </ExtendedText>
+                  )}
+                </ExtendedView>
+              </ExtendedView>
+            }
+            rightComponent={
+              <ExtendedView style={styles.rightImgContainer}>
+                <TouchableOpacity onPress={decrementCount}>
+                  <Image source={minusSource} />
+                </TouchableOpacity>
+                <ExtendedText>{counter}</ExtendedText>
+                <TouchableOpacity onPress={incrementCount}>
+                  <Image source={addSource} />
+                </TouchableOpacity>
+              </ExtendedView>
+            }
+          />
+        </ExtendedView>
+      </Swipeable>
+    </GestureHandlerRootView>
   );
 };
 
 const styles = StyleSheet.create({
   cartLayout: {
-    height: 103,
+    height: 100,
+    width: "86%",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F9F9F9",
     borderRadius: 25,
     marginHorizontal: 24,
-    paddingTop: 3,
+    marginVertical: 8,
+    paddingBottom: 30,
   },
   styleheader: {
     height: 80,
@@ -103,8 +131,6 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     borderBottomWidth: 0,
     padding: 0,
-    alignItems: "center",
-    justifyContent: "center",
   },
   centerContainer: {
     height: 80,
@@ -140,7 +166,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 11,
-    marginLeft: 3,
     backgroundColor: "#faefc7",
   },
   leftImg: {
@@ -155,10 +180,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginRight: 3,
   },
-  minusImg: {},
-  addImg: {},
+  deleteButton: {
+    backgroundColor: "#EB43351A",
+    color: "red",
+    justifyContent: "center",
+    alignItems: "flex-end",
+    width: 90,
+    height: "80%",
+    alignSelf: "center",
+    padding: "4.5%",
+    borderRadius: 25,
+    marginRight: "7%",
+    marginLeft: "-17%",
+  },
 });
 
 export default CustomCartItem;

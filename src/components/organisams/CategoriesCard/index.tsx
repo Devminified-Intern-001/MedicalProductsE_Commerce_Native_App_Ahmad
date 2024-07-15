@@ -6,6 +6,7 @@ import { ExtendedText, ExtendedView } from "../../atoms";
 interface CardData {
   title: string;
   source: ImageSourcePropType;
+  backgroundColor?: string;
 }
 
 interface CategoriesCardRowProps {
@@ -26,6 +27,7 @@ const CustomCategoriesCard = ({ cardData }: CategoriesCardRowProps) => {
             key={index}
             title={data.title}
             source={data.source}
+            backgroundColor={data.backgroundColor}
           />
         ))}
       </ExtendedView>

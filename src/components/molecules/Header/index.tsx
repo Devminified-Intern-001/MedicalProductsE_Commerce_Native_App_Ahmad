@@ -1,12 +1,7 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  ImageSourcePropType,
-  Image,
-} from "react-native";
+import { StyleSheet, ImageSourcePropType, Image } from "react-native";
+import { ExtendedView, ExtendedText } from "../../atoms";
 import React from "react";
-import { Header, Icon } from "react-native-elements";
+import { Header } from "react-native-elements";
 import { ExtendedTouchableOpacity } from "../../atoms";
 // import { color } from 'react-native-elements/dist/helpers'
 
@@ -14,35 +9,42 @@ interface UiHeader {
   leftSource?: ImageSourcePropType;
   rightSource?: ImageSourcePropType;
   title?: string;
+  titleStyle?: object;
   onPress?: () => void;
+  onArrowPress?: () => void;
 }
 
 const CustomHeader = (props: UiHeader) => {
-  const { leftSource, rightSource, title, onPress } = props;
+  const { leftSource, rightSource, title, onPress, onArrowPress, titleStyle } =
+    props;
   return (
     <Header
       containerStyle={styles.styleheader}
       leftComponent={
         leftSource && (
-          <View style={styles.leftImgContainer}>
-            <Image source={leftSource} />
-          </View>
+          <ExtendedView style={styles.leftImgContainer}>
+            <ExtendedTouchableOpacity onPress={onArrowPress}>
+              <Image source={leftSource} />
+            </ExtendedTouchableOpacity>
+          </ExtendedView>
         )
       }
       centerComponent={
         title && (
-          <View style={styles.itemContainer}>
-            <Text style={styles.itemTitle}>{title}</Text>
-          </View>
+          <ExtendedView style={styles.itemContainer}>
+            <ExtendedText style={[styles.itemTitle, titleStyle]}>
+              {title}
+            </ExtendedText>
+          </ExtendedView>
         )
       }
       rightComponent={
         rightSource && (
-          <View style={styles.rightImgContainer}>
+          <ExtendedView style={styles.rightImgContainer}>
             <ExtendedTouchableOpacity onPress={onPress}>
               <Image source={rightSource} style={styles.rightImg} />
             </ExtendedTouchableOpacity>
-          </View>
+          </ExtendedView>
         )
       }
     />
@@ -88,8 +90,8 @@ const styles = StyleSheet.create({
   },
   rightImg: {
     // marginTop: "%",
-    height: 12,
-    width: 18,
+    // height: 12,
+    // width: 18,
   },
 });
 export default CustomHeader;

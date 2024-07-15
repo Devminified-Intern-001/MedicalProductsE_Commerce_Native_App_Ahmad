@@ -7,12 +7,19 @@ interface UiCategoryCard {
   title: string;
   source: ImageSourcePropType;
   style?: object;
+  backgroundColor?: string;
 }
 
 const CustomCategoryCard = (props: UiCategoryCard) => {
-  const { children, title, source, ...rest } = props;
+  const { children, title, source, backgroundColor, ...rest } = props;
   return (
-    <ExtendedView style={[styles.container, rest.style]}>
+    <ExtendedView
+      style={[
+        styles.container,
+        rest.style,
+        { backgroundColor: backgroundColor },
+      ]}
+    >
       <ExtendedView>
         <Image style={styles.icon} source={source} />
       </ExtendedView>

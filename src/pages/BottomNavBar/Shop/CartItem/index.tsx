@@ -1,60 +1,86 @@
 import { StyleSheet } from "react-native";
 import { CustomButton, CustomHeader } from "../../../../components/molecules";
 import { ExtendedView, ExtendedText } from "../../../../components/atoms";
-
 import { BasicLayout } from "../../../../layout";
-import React from "react";
-import { CustomCartItems } from "../../../../components/organisams";
+import React, { useState } from "react";
+import { CustomCartItems } from "../../../../components/organisams"; // Ensure the import path is correct
 import { itemsCartData } from "../../../../data/cartItems";
 import RightArrowIcon from "../../../../../svgs/RightArrow";
+import { useNavigation } from "@react-navigation/native";
+import Routes from "../../../../routes";
 
 const CartItemPage = () => {
+  const navigation: any = useNavigation();
+  const [cartData, setCartData] = useState(itemsCartData);
+
+  const handleDelete = (index: number) => {
+    const newData = cartData.filter((_, i) => i !== index);
+    setCartData(newData);
+  };
+
   return (
-    <BasicLayout>
-      <ExtendedView style={styles.pageContainer}>
-        <ExtendedView style={styles.header}>
-          <CustomHeader
-            leftSource={require("../../../../../assets/arrow.png")}
-            title="Cart Item"
+    <ExtendedView style={styles.pageContainer}>
+      <ExtendedView style={styles.header}>
+        <CustomHeader
+          leftSource={require("../../../../../assets/arrow.png")}
+          title="Cart Item"
+          titleStyle={styles.title}
+          onArrowPress={() => navigation.goBack()}
+        />
+      </ExtendedView>
+      <BasicLayout>
+        <ExtendedView style={styles.cartItems}>
+          <CustomCartItems cartData={cartData} onDelete={handleDelete} />
+        </ExtendedView>
+      </BasicLayout>
+
+      <ExtendedView style={styles.footerStyle}>
+        <ExtendedView style={styles.priceFlex}>
+          <ExtendedText style={styles.textStyle}>Total</ExtendedText>
+          <ExtendedText style={styles.priceStyle}>$27.38</ExtendedText>
+        </ExtendedView>
+        <ExtendedView>
+          <CustomButton
+            title="Checkout"
+            righticon={<RightArrowIcon width={24} height={24} />}
+            style={styles.checkoutBtn}
+            onPress={() => navigation.navigate(Routes.PaymentDetailsPage)}
           />
         </ExtendedView>
-
-        <ExtendedView>
-          <CustomCartItems cartData={itemsCartData} />
-        </ExtendedView>
-
-        <ExtendedView style={styles.footerStyle}>
-          <ExtendedView style={styles.priceFlex}>
-            <ExtendedText style={styles.textStyle}>Total</ExtendedText>
-            <ExtendedText style={styles.priceStyle}>$27.38</ExtendedText>
-          </ExtendedView>
-          <ExtendedView>
-            <CustomButton
-              title="Checkout"
-              righticon={<RightArrowIcon width={24} height={24} />}
-              style={styles.checkoutBtn}
-            />
-          </ExtendedView>
-        </ExtendedView>
       </ExtendedView>
-    </BasicLayout>
+    </ExtendedView>
   );
 };
+
 export default CartItemPage;
 
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: "6%",
   },
   header: {
-    paddingTop: "6%",
-    paddingBottom: "8%",
+    marginTop: "2%",
+    marginBottom: "2%",
+    width: "100%",
+    height: "8%",
+    flex: 0,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#181C32",
+  },
+  cartItems: {
+    flex: 1,
+    marginTop: "4%",
+    marginBottom: "10%",
   },
   footerStyle: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
+    flex: 0,
     flexDirection: "row",
     alignSelf: "center",
     alignItems: "center",

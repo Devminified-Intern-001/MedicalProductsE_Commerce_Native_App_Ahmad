@@ -1,30 +1,50 @@
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet } from "react-native";
 import {
-  CustomButton,
   CustomInput,
-  AboutSection,
   CustomProfileHeader,
   ItemCard,
+  SpecialOfferSlider,
 } from "../../../../components/molecules";
-import { ExtendedView, ExtendedText } from "../../../../components/atoms";
-import Search from "../../../../../svgs/Search";
-import GoogleIcon from "../../../../../svgs/GoogleIcon";
-import { SpecialOfferSlider } from "../../../../components/molecules";
-import CustomCategoriesCard from "../../../../components/organisams/CategoriesCard";
+import {
+  ExtendedView,
+  ExtendedText,
+  ExtendedTouchableOpacity,
+} from "../../../../components/atoms";
+import { SearchIcon } from "../../../../../svgs";
+import { CustomCategoriesCard } from "../../../../components/organisams";
 import { BasicLayout } from "../../../../layout";
+import { useNavigation } from "@react-navigation/native";
 
 const cardData = [
-  { title: "Fruit", source: require("../../../../../assets/fruit2.png") },
-  { title: "Vegie", source: require("../../../../../assets/vegies.png") },
-  { title: "Snack", source: require("../../../../../assets/snacks.png") },
-  { title: "Beef", source: require("../../../../../assets/beef.png") },
+  {
+    title: "Fruit",
+    source: require("../../../../../assets/fruit2.png"),
+    backgroundColor: "#DB00FF1A",
+  },
+  {
+    title: "Vegie",
+    source: require("../../../../../assets/vegies.png"),
+    backgroundColor: "#34A85326",
+  },
+  {
+    title: "Snack",
+    source: require("../../../../../assets/snacks.png"),
+    backgroundColor: "#FBD54E26",
+  },
+  {
+    title: "Beef",
+    source: require("../../../../../assets/beef.png"),
+    backgroundColor: "#EB433526",
+  },
 ];
 
 const HomePage = () => {
+  const navigation: any = useNavigation();
+
   return (
     <BasicLayout>
       <ExtendedView style={styles.pageLayout}>
-        <ExtendedView style={styles.welcome}>
+        <ExtendedView style={styles.header}>
           <CustomProfileHeader
             topTitle="Hi,James!"
             bottomTitle="What would you buy today?"
@@ -35,7 +55,7 @@ const HomePage = () => {
           <CustomInput
             placeholder="Search by items name"
             keyboardType="default"
-            lefticon={<Search />}
+            lefticon={<SearchIcon />}
           ></CustomInput>
         </ExtendedView>
 
@@ -43,15 +63,20 @@ const HomePage = () => {
           <SpecialOfferSlider />
         </ExtendedView>
 
-        <ExtendedView style={styles.categoryCardContainer}>
-          <CustomCategoriesCard cardData={cardData} />
-        </ExtendedView>
+        <ExtendedTouchableOpacity
+          onPress={() => navigation.navigate("BottomNavBar")}
+          activeOpacity={0.6}
+        >
+          <ExtendedView style={styles.categoryCardContainer}>
+            <CustomCategoriesCard cardData={cardData} />
+          </ExtendedView>
+        </ExtendedTouchableOpacity>
 
         <ExtendedView style={styles.recentShopTitle}>
           <ExtendedText style={styles.recentCardTitle}>
             Recent Shop
           </ExtendedText>
-          <ExtendedText>See All</ExtendedText>
+          <ExtendedText style={styles.recentSeeAll}>See All</ExtendedText>
         </ExtendedView>
         <ExtendedView style={styles.itemCardStyle}>
           <ItemCard
@@ -59,13 +84,13 @@ const HomePage = () => {
             source={require("../../../../../assets/Carrots.png")}
             itemDescrip="Cabbage is a vegitable source of fiber."
             itemPrice="50"
+            cardLayoutStyle={styles.cardLayout}
             flexStyle={styles.customFlex}
-            imageStyle={styles.imgStyle}
             detailsStyle={styles.dtlStyle}
+            backgroundColor="#FBD54E4A"
           />
         </ExtendedView>
       </ExtendedView>
-      {/* </SafeAreaView> */}
     </BasicLayout>
   );
 };
@@ -75,11 +100,10 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 10,
     backgroundColor: "#fff",
-    marginTop: 10,
     height: "100%",
   },
-  welcome: {
-    marginTop: 20,
+  header: {
+    marginVertical: 20,
   },
   searchField: {
     height: 30,
@@ -94,7 +118,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 22,
-    marginTop: 30,
+    marginTop: "10%",
     height: 100,
     width: 370,
     right: 4,
@@ -102,28 +126,38 @@ const styles = StyleSheet.create({
   recentShopTitle: {
     flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
     height: 30,
-    marginTop: 10,
+    marginTop: "4%",
   },
   recentCardTitle: {
     fontSize: 16,
     fontWeight: "700",
     width: 244,
   },
+  recentSeeAll: {
+    fontSize: 12,
+    fontWeight: "400",
+    color: "#9B9B9B",
+  },
   itemCardStyle: {
-    alignItems: "center",
-    bottom: 14,
+    width: "100%",
+  },
+  cardLayout: {
+    marginHorizontal: "10%",
+    alignSelf: "center",
+    bottom: "6%",
+    marginBottom: "4%",
   },
   customFlex: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-  },
-  imgStyle: {
-    marginBottom: 0,
+    height: 120,
+    paddingTop: "6%",
   },
   dtlStyle: {
-    paddingLeft: 16,
+    paddingLeft: "4%",
     bottom: 12,
   },
 });

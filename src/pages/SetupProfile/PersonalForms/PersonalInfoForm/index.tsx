@@ -126,7 +126,7 @@ const PDetialsForm = () => {
             <CustomButton
               title="Submit"
               style={styles.sigin}
-              onPress={() => navigation.navigate("PersonalDetails")}
+              onPress={() => navigation.navigate("PersonalDetailsPage")}
             />
           </ExtendedView>
 

@@ -10,6 +10,7 @@ interface ItemsCartData {
   itemDescrip: string;
   itemPrice: string;
   itemQt: string;
+  backgroundColor?: string;
 }
 
 interface CategoriesCardRowProps {
@@ -29,6 +30,7 @@ const CustomItemsCard = ({ cardData }: CategoriesCardRowProps) => {
             itemDescrip={data.itemDescrip}
             itemPrice={data.itemPrice}
             itemQt={data.itemQt}
+            backgroundColor={data.backgroundColor}
             cardLayoutStyle={styles.cardLayout}
             flexStyle={styles.cardContainer}
             imageStyle={styles.image}
@@ -49,6 +51,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
+    bottom: "8%",
   },
   cardLayout: {
     minHeight: 190,

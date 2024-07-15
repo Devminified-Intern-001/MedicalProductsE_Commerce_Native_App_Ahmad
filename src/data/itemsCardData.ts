@@ -5,6 +5,7 @@ export const itemsCardData = [
     itemDescrip: "Very fresh and new product.",
     itemPrice: "50",
     itemQt: "1",
+    backgroundColor: "#FBD54E4A",
   },
   {
     title: "Tomato",
@@ -12,6 +13,7 @@ export const itemsCardData = [
     itemDescrip: "Very fresh and new product.",
     itemPrice: "50",
     itemQt: "1",
+    backgroundColor: "#34A85326",
   },
   {
     title: "Cabbage",
@@ -19,6 +21,7 @@ export const itemsCardData = [
     itemDescrip: "Very fresh and new product.",
     itemPrice: "50",
     itemQt: "1",
+    backgroundColor: "#DB00FF1A",
   },
   {
     title: "Turnip",
@@ -26,6 +29,7 @@ export const itemsCardData = [
     itemDescrip: "Very fresh and new product.",
     itemPrice: "50",
     itemQt: "1",
+    backgroundColor: "#FBD54E4A",
   },
   {
     title: "Turnip",
@@ -33,6 +37,7 @@ export const itemsCardData = [
     itemDescrip: "Very fresh and new product.",
     itemPrice: "50",
     itemQt: "1",
+    backgroundColor: "#FBD54E4A",
   },
   {
     title: "Tomato",
@@ -40,5 +45,6 @@ export const itemsCardData = [
     itemDescrip: "Very fresh and new product.",
     itemPrice: "50",
     itemQt: "1",
+    backgroundColor: "#EB433526",
   },
 ];

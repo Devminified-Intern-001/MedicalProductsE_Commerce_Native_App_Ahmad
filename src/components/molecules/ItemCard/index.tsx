@@ -18,6 +18,7 @@ interface UiItemCard extends CardProps {
   description?: object;
   priceDetail?: object;
   cardLayoutStyle?: object;
+  backgroundColor?: string;
 }
 
 const ItemCard = (props: UiItemCard) => {
@@ -36,6 +37,7 @@ const ItemCard = (props: UiItemCard) => {
     description,
     priceDetail,
     children,
+    backgroundColor,
     ...rest
   } = props;
   return (
@@ -45,7 +47,13 @@ const ItemCard = (props: UiItemCard) => {
     >
       <ExtendedView>
         <ExtendedView style={[styles.flex, flexStyle]}>
-          <ExtendedView style={[styles.itemImage, imgCoverStyle]}>
+          <ExtendedView
+            style={[
+              styles.itemImage,
+              imgCoverStyle,
+              { backgroundColor: backgroundColor },
+            ]}
+          >
             <Image
               source={source}
               style={[styles.imageStyle, imageStyle]}

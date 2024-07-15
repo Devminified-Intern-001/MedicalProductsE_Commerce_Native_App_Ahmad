@@ -1,5 +1,9 @@
 import { StyleSheet, ImageSourcePropType, Image } from "react-native";
-import { ExtendedView, ExtendedText } from "../../atoms";
+import {
+  ExtendedView,
+  ExtendedText,
+  ExtendedTouchableOpacity,
+} from "../../atoms";
 import React from "react";
 import { Header, Icon, Tooltip } from "react-native-elements";
 // import { color } from 'react-native-elements/dist/helpers'
@@ -9,11 +13,18 @@ interface UiProfileHeader {
   topTitle: string;
   bottomTitle: string;
   backgroundColor?: string;
+  onArrowPress?: () => void;
 }
 
 const CustomProfileHeader = (props: UiProfileHeader) => {
-  const { rightSource, topTitle, bottomTitle, backgroundColor, ...rest } =
-    props;
+  const {
+    rightSource,
+    topTitle,
+    bottomTitle,
+    backgroundColor,
+    onArrowPress,
+    ...rest
+  } = props;
   return (
     <Header
       containerStyle={styles.styleheader}
@@ -32,14 +43,16 @@ const CustomProfileHeader = (props: UiProfileHeader) => {
             { backgroundColor: backgroundColor },
           ]}
         >
-          {React.isValidElement(rightSource) ? (
-            rightSource
-          ) : (
-            <Image
-              source={rightSource as ImageSourcePropType}
-              style={styles.rightImg}
-            />
-          )}
+          <ExtendedTouchableOpacity onPress={onArrowPress}>
+            {React.isValidElement(rightSource) ? (
+              rightSource
+            ) : (
+              <Image
+                source={rightSource as ImageSourcePropType}
+                style={styles.rightImg}
+              />
+            )}
+          </ExtendedTouchableOpacity>
         </ExtendedView>
       }
       {...rest}

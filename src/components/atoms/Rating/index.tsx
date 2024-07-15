@@ -1,9 +1,10 @@
 import React from "react";
 import { Rating, TapRatingProps } from "react-native-ratings";
-import { View, Text, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
+import ExtendedView from "../View";
 
 interface UiRatingProps extends TapRatingProps {
-  title: string;
+  title?: string;
 }
 
 const ExtendedRating: React.FC<UiRatingProps> = (props) => {
@@ -16,16 +17,17 @@ const ExtendedRating: React.FC<UiRatingProps> = (props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ExtendedView style={styles.container}>
       <Rating
         onFinishRating={ratingCompleted}
         style={styles.rating}
         fractions={1}
-        imageSize={30}
+        imageSize={20}
+        ratingBackgroundColor="transparent"
         {...rest}
       />
-      <Text style={styles.ratingValue}>{currentRating.toFixed(1)}/5</Text>
-    </View>
+      <Text style={styles.ratingValue}>({currentRating.toFixed(1)}/5)</Text>
+    </ExtendedView>
   );
 };
 
@@ -33,12 +35,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
+    backgroundColor: "transparent",
   },
   rating: {
-    paddingVertical: 10,
+    paddingVertical: 0,
+    backgroundColor: "transparent",
   },
   ratingValue: {
-    marginLeft: 20,
+    marginLeft: 12,
     fontSize: 12,
   },
 });

@@ -10,6 +10,7 @@ import CustomCartItem from "./CartItems";
 import CustomSettingsCard from "./settingsCard";
 import CustomMyProfile from "./MyProfile";
 import SpecialOfferSlider from "./SpecialOfferSlider";
+import BottomNavigationTab from "../../navigation/bottomNavigationTab";
 export {
   CustomButton,
   CustomInput,
@@ -23,4 +24,5 @@ export {
   CustomSettingsCard,
   CustomMyProfile,
   SpecialOfferSlider,
+  BottomNavigationTab,
 };

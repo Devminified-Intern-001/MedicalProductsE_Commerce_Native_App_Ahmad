@@ -1,25 +1,28 @@
-// In App.js in a new project
-
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import IntroSlider from "../pages/SetupProfile/AppIntroSlider";
-import { Auth } from "./index";
-import PDetialsForm from "../pages/SetupProfile/PersonalForms/PersonalInfoForm";
-import PersonalDetails from "../pages/SetupProfile/PersonalForms/PersonalDetailsForm";
+import { Auth, BottomNavBar, BottomNavigationTab, ShopItems } from "./index";
+import Routes from "../routes";
 const Stack = createNativeStackNavigator();
 
-function Main() {
+const Main = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Auth"
+        initialRouteName={Routes.Auth}
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name="Auth" component={Auth} />
+        <Stack.Screen name={Routes.Auth} component={Auth} />
+
+        <Stack.Screen
+          name={Routes.BottomNavigationTab}
+          component={BottomNavigationTab}
+        />
+        <Stack.Screen name={Routes.BottomNavBar} component={BottomNavBar} />
+        <Stack.Screen name={Routes.ShopItems} component={ShopItems} />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default Main;

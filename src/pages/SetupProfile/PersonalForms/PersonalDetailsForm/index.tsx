@@ -8,10 +8,14 @@ import {
 import React from "react";
 import { ProfileImgIcon } from "../../../../../svgs";
 import { BasicLayout } from "../../../../layout";
+import { useNavigation } from "@react-navigation/native";
+import Routes from "../../../../routes";
 
 const PersonalDetails = () => {
+  const navigation: any = useNavigation();
+
   return (
-    <BasicLayout style={styles.container}>
+    <BasicLayout>
       <ExtendedView style={styles.outerTextContainer}>
         <ExtendedText style={styles.outerTextStyle}>
           Thanks! Your answers also became a report that can help others like
@@ -84,7 +88,11 @@ const PersonalDetails = () => {
           </ExtendedView>
         </ExtendedView>
       </ExtendedView>
-      <CustomButton title="Next" style={styles.next} />
+      <CustomButton
+        title="Next"
+        style={styles.next}
+        onPress={() => navigation.navigate(Routes.SigninPage)}
+      />
       <ExtendedView>
         <AboutSection />
       </ExtendedView>

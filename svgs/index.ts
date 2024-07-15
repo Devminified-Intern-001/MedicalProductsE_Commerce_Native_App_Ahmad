@@ -14,6 +14,9 @@ import WalletIcon from "./Wallet";
 import ProfileImgIcon from "./ProfileImg";
 import ThumbIcon from "./ThumbIcon";
 import TickIcon from "./TickIcon";
+import SearchIcon from "./Search";
+import TrashIcon from "./TrashIcon";
+import ShoppingCartIcon from "./ShopingCart";
 export {
   ProfileIcon,
   Arrow,
@@ -31,4 +34,7 @@ export {
   ProfileImgIcon,
   ThumbIcon,
   TickIcon,
+  SearchIcon,
+  TrashIcon,
+  ShoppingCartIcon,
 };

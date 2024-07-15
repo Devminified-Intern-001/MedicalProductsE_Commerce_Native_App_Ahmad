@@ -1,21 +1,32 @@
-import { StyleSheet, Image, TouchableOpacity } from "react-native";
-import {
-  CustomButton,
-  CustomFlexText,
-  CustomHeader,
-} from "../../../../components/molecules";
+import React, { useState } from "react";
+import { StyleSheet, Image, ImageSourcePropType } from "react-native";
 import {
   ExtendedView,
   ExtendedText,
-  ExtendedItemSlide,
+  ExtendedItemsText,
   ExtendedRating,
+  ExtendedTouchableOpacity,
 } from "../../../../components/atoms";
-
+import { CustomButton, CustomHeader } from "../../../../components/molecules";
+import ExtendedItemSlide from "../../../../components/organisams/ItemSlideShow";
 import { BasicLayout } from "../../../../layout";
-import React, { useState } from "react";
-import ShoppingCartIcon from "../../../../../svgs/ShopingCart";
+import { ShoppingCartIcon } from "../../../../../svgs/index";
+import { useNavigation } from "@react-navigation/native";
+import Routes from "../../../../routes";
+import { shopItemsData } from "../../../../data/shopItems";
 
-const ShopItemPage = () => {
+interface ShopItemsData {
+  imageUrl: ImageSourcePropType;
+  itemName: string;
+  description: string;
+  nutritionFacts: string;
+  calories: string;
+  price: string;
+}
+
+const ShopItemPage: React.FC = () => {
+  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+  const navigation: any = useNavigation();
   let [counter, setCounter] = useState(0);
 
   function incrementCount() {
@@ -28,92 +39,267 @@ const ShopItemPage = () => {
     }
   }
 
+  const handleItemChange = (index: number) => {
+    setSelectedItemIndex(index);
+  };
+
   return (
-    <BasicLayout>
-      <ExtendedView>
+    <ExtendedView style={styles.pageContainer}>
+      <ExtendedView style={styles.header}>
+        <CustomHeader
+          leftSource={require("../../../../../assets/arrow.png")}
+          title="Shop Items"
+          rightSource={require("../../../../../assets/shoppingCartImg.png")}
+          titleStyle={styles.title}
+          onArrowPress={() => navigation.goBack()}
+        />
+      </ExtendedView>
+      <ExtendedView style={styles.contentContainer}>
+        <BasicLayout>
+          <ExtendedView style={styles.itemsSwiper}>
+            <ExtendedItemSlide
+              itemsData={shopItemsData}
+              onIndexChanged={handleItemChange}
+            />
+          </ExtendedView>
+
+          <ExtendedView style={styles.mapItemsData}>
+            <ExtendedView style={styles.flexStyle}>
+              <ExtendedView>
+                <ExtendedItemsText
+                  style={styles.titleStyle}
+                  itemName={shopItemsData[selectedItemIndex].itemName}
+                ></ExtendedItemsText>
+              </ExtendedView>
+
+              <ExtendedView style={styles.flexBox}>
+                <ExtendedView style={styles.ratingIconBackground}>
+                  <ExtendedRating />
+                </ExtendedView>
+
+                <ExtendedView style={styles.rightImgContainer}>
+                  <ExtendedTouchableOpacity onPress={decrementCount}>
+                    <Image
+                      source={require("../../../../../assets/minus.png")}
+                    />
+                  </ExtendedTouchableOpacity>
+                  <ExtendedText>{counter}</ExtendedText>
+                  <ExtendedTouchableOpacity onPress={incrementCount}>
+                    <Image source={require("../../../../../assets/add.png")} />
+                  </ExtendedTouchableOpacity>
+                </ExtendedView>
+              </ExtendedView>
+            </ExtendedView>
+            <ExtendedView style={styles.flexStyle}>
+              <ExtendedView>
+                <ExtendedText style={styles.textStyle}>
+                  Description
+                </ExtendedText>
+              </ExtendedView>
+              <ExtendedView>
+                <ExtendedItemsText
+                  style={styles.descText}
+                  description={shopItemsData[selectedItemIndex].description}
+                ></ExtendedItemsText>
+              </ExtendedView>
+            </ExtendedView>
+
+            <ExtendedView style={styles.flexStyle}>
+              <ExtendedView>
+                <ExtendedText style={styles.textStyle}>
+                  Nutrition facts
+                </ExtendedText>
+              </ExtendedView>
+              <ExtendedView>
+                <ExtendedItemsText
+                  style={styles.descText}
+                  nutritionFacts={
+                    shopItemsData[selectedItemIndex].nutritionFacts
+                  }
+                ></ExtendedItemsText>
+                <ExtendedText style={styles.descText}>
+                  Amount per serving
+                </ExtendedText>
+              </ExtendedView>
+            </ExtendedView>
+
+            <ExtendedView style={styles.flexStyle}>
+              <ExtendedView style={styles.spacing}>
+                <ExtendedText style={styles.calTextStyle}>
+                  Calories
+                </ExtendedText>
+                <ExtendedItemsText
+                  style={styles.calValue}
+                  calories={shopItemsData[selectedItemIndex].calories}
+                ></ExtendedItemsText>
+              </ExtendedView>
+
+              <ExtendedView style={styles.horizontalLine}></ExtendedView>
+
+              <ExtendedView>
+                <ExtendedText style={styles.rightAlign}>
+                  % Daily Value*
+                </ExtendedText>
+              </ExtendedView>
+            </ExtendedView>
+          </ExtendedView>
+        </BasicLayout>
+      </ExtendedView>
+
+      <ExtendedView style={styles.footerStyle}>
+        <ExtendedView style={styles.priceFlex}>
+          <ExtendedText style={styles.totalTextStyle}>Price</ExtendedText>
+          <ExtendedText style={styles.priceStyle}>
+            ${shopItemsData[selectedItemIndex].price}
+          </ExtendedText>
+        </ExtendedView>
         <ExtendedView>
-          <CustomHeader
-            leftSource={require("../../../../../assets/arrow.png")}
-            title="Shop Items"
-            rightSource={require("../../../../../assets/bag.png")}
+          <CustomButton
+            title="Add to cart"
+            lefticon={<ShoppingCartIcon />}
+            style={styles.checkoutBtn}
+            onPress={() => navigation.navigate(Routes.CartItemPage)}
           />
         </ExtendedView>
-
-        <ExtendedView>
-          <ExtendedItemSlide arrowSize={20} />
-        </ExtendedView>
-
-        <ExtendedView>
-          <ExtendedText>Organic Carrots</ExtendedText>
-        </ExtendedView>
-
-        <ExtendedView>
-          <ExtendedView>
-            <ExtendedRating title="" />
-          </ExtendedView>
-
-          <ExtendedView style={styles.rightImgContainer}>
-            <TouchableOpacity onPress={decrementCount}>
-              <Image source={require("../../../../../assets/minus.png")} />
-            </TouchableOpacity>
-            <ExtendedText>{counter}</ExtendedText>
-            <TouchableOpacity onPress={incrementCount}>
-              <Image source={require("../../../../../assets//add.png")} />
-            </TouchableOpacity>
-          </ExtendedView>
-        </ExtendedView>
-
-        <ExtendedView>
-          <ExtendedText>Description</ExtendedText>
-        </ExtendedView>
-        <ExtendedView>
-          <ExtendedText>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s
-          </ExtendedText>
-        </ExtendedView>
-
-        <ExtendedView>
-          <ExtendedText>Nutrition facts</ExtendedText>
-        </ExtendedView>
-        <ExtendedView>
-          <ExtendedText>
-            About 3.5 servings per container Serving size 1/2 cup (120g)
-          </ExtendedText>
-          <ExtendedText>Amount per serving </ExtendedText>
-        </ExtendedView>
-
-        <ExtendedView>
-          <CustomFlexText title="Calories" textValue="40" />
-        </ExtendedView>
-
-        <ExtendedView>
-          <ExtendedText>% Daily Value*</ExtendedText>
-        </ExtendedView>
-
-        <ExtendedView>
-          <ExtendedView>
-            <ExtendedText>Price</ExtendedText>
-            <ExtendedText>$27.38</ExtendedText>
-          </ExtendedView>
-          <ExtendedView>
-            <CustomButton title="Add to cart" lefticon={<ShoppingCartIcon />} />
-          </ExtendedView>
-        </ExtendedView>
       </ExtendedView>
-    </BasicLayout>
+    </ExtendedView>
   );
 };
+
 export default ShopItemPage;
 
 const styles = StyleSheet.create({
+  pageContainer: {
+    flex: 1,
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: "6%",
+    backgroundColor: "#fff",
+  },
+  header: {
+    marginTop: "2%",
+    marginBottom: "3%",
+    width: "100%",
+    height: "8%",
+    flex: 0,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "700",
+    width: 180,
+    textAlign: "center",
+    color: "#181C32",
+  },
+  contentContainer: {
+    flex: 1,
+    marginHorizontal: "9%",
+  },
+  itemsSwiper: {
+    flex: 1,
+    marginTop: "3%",
+    marginBottom: "8%",
+  },
+  mapItemsData: {
+    width: "100%",
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footerStyle: {
+    flex: 0,
+    flexDirection: "row",
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: 100,
+    width: "100%",
+    borderRadius: 45,
+    borderBottomLeftRadius: 29,
+    borderBottomRightRadius: 29,
+    paddingHorizontal: "8%",
+    backgroundColor: "#F9F9FF",
+  },
+  priceFlex: {
+    flexDirection: "column",
+  },
+  checkoutBtn: {
+    width: 166,
+    height: 50,
+  },
+  totalTextStyle: {
+    fontSize: 14,
+    fontWeight: "700",
+    color: "#C4C4C4",
+  },
+  priceStyle: {
+    fontSize: 22,
+    fontWeight: "700",
+    color: "#3F4254",
+  },
+  flexStyle: {
+    flex: 1,
+    width: "100%",
+    justifyContent: "center",
+    textAlign: "center",
+    height: "100%",
+  },
+  titleStyle: {
+    fontSize: 20,
+    fontWeight: "900",
+    color: "#111",
+  },
+  flexBox: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  ratingIconBackground: {
+    // backgroundColor: "#111",
+  },
   rightImgContainer: {
-    height: 80,
-    width: 80,
+    height: 60,
+    width: 90,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginRight: 3,
+  },
+  textStyle: {
+    fontSize: 16,
+    fontWeight: "700",
+    marginTop: "4%",
+  },
+  descText: {
+    fontSize: 12,
+    fontWeight: "400",
+    color: "#9B9B9B",
+    marginTop: "2%",
+  },
+  spacing: {
+    marginVertical: "3%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  calTextStyle: {
+    fontSize: 16,
+    fontWeight: "400",
+    color: "#333535",
+  },
+  calValue: {
+    fontSize: 16,
+    fontWeight: "700",
+  },
+  horizontalLine: {
+    backgroundColor: "#00000024",
+    height: 1,
+  },
+  rightAlign: {
+    alignSelf: "flex-end",
+    fontSize: 13,
+    fontWeight: "400",
+    color: "#333535",
+    marginTop: "3%",
+    marginBottom: "6%",
   },
 });

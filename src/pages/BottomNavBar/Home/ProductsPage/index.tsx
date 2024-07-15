@@ -1,5 +1,8 @@
 import { StyleSheet, Modal, TouchableWithoutFeedback } from "react-native";
-import { ExtendedView } from "../../../../components/atoms";
+import {
+  ExtendedTouchableOpacity,
+  ExtendedView,
+} from "../../../../components/atoms";
 import { CustomHeader, CustomInput } from "../../../../components/molecules";
 import {
   CustomItemsCard,
@@ -9,8 +12,12 @@ import { itemsCardData } from "../../../../data/itemsCardData";
 import Search from "../../../../../svgs/Search";
 import React, { useState } from "react";
 import { BasicLayout } from "../../../../layout";
+import { useNavigation } from "@react-navigation/native";
+import Routes from "../../../../routes";
 
 const ProductsPage = () => {
+  const navigation: any = useNavigation();
+
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const toggleFilterVisibility = () => {
     setIsFilterVisible(!isFilterVisible);
@@ -32,6 +39,11 @@ const ProductsPage = () => {
               title="Vegitables"
               rightSource={require("../../../../../assets/menu.png")}
               onPress={toggleFilterVisibility}
+              onArrowPress={() =>
+                navigation.navigate("BottomNavigationTab", {
+                  screen: "Home",
+                })
+              }
             />
           </ExtendedView>
           <ExtendedView style={styles.searchFiled}>
@@ -41,10 +53,15 @@ const ProductsPage = () => {
               lefticon={<Search />}
             ></CustomInput>
           </ExtendedView>
-          <ExtendedView style={styles.cardsConatiner}>
-            <ExtendedView style={styles.cardsLayout}>
-              <CustomItemsCard cardData={itemsCardData} />
-            </ExtendedView>
+          <ExtendedView>
+            <ExtendedTouchableOpacity
+              onPress={() => navigation.navigate(Routes.ShopItems)}
+              activeOpacity={1}
+            >
+              <ExtendedView style={styles.cardsLayout}>
+                <CustomItemsCard cardData={itemsCardData} />
+              </ExtendedView>
+            </ExtendedTouchableOpacity>
           </ExtendedView>
           <Modal
             visible={isFilterVisible}
@@ -66,14 +83,11 @@ const ProductsPage = () => {
 
 const styles = StyleSheet.create({
   header: {
-    marginTop: "4%",
+    marginBottom: "4%",
   },
   searchFiled: {
     alignItems: "center",
-    marginVertical: "4%",
-  },
-  cardsConatiner: {
-    marginBottom: "10%",
+    marginTop: "4%",
   },
   cardsLayout: {
     marginVertical: "4%",

@@ -12,10 +12,17 @@ import {
 import Eye from "../../../../../svgs/Eye";
 import GoogleIcon from "../../../../../svgs/GoogleIcon";
 import { useNavigation } from "@react-navigation/native";
+import Routes from "../../../../routes";
+import SignUpPage from "../SignupPage";
 
 export default function SigninPage() {
   const navigation: any = useNavigation();
-
+  const handleSignIn = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: Routes.BottomNavigationTab }],
+    });
+  };
   return (
     <ExtendedView style={styles.container}>
       <ExtendedView style={styles.welcome}>
@@ -28,7 +35,7 @@ export default function SigninPage() {
         <ExtendedText style={styles.introText}>New Here?</ExtendedText>
         <ExtendedTouchableOpacity>
           <ExtendedTouchableOpacity
-            onPress={() => navigation?.navigate("SignUpPage")}
+            onPress={() => navigation?.navigate(Routes.SignUpPage)}
           >
             <ExtendedText style={styles.createAccText}>
               Create an Account
@@ -59,14 +66,13 @@ export default function SigninPage() {
       <CustomButton
         title="Signin"
         style={styles.sigin}
-        onPress={() => navigation?.navigate("PersDetailsForm")}
+        onPress={handleSignIn}
       />
 
       <CustomButton
         title="Signin with google"
         style={styles.googleSigin}
         lefticon={<GoogleIcon />}
-        onPress={() => navigation?.navigate("SignUpPage")}
       />
       <AboutSection style={styles.aboutSection} />
     </ExtendedView>

@@ -4,13 +4,13 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SigninPage from "./src/pages/SetupProfile/Auth/SigninPage";
 import SignUpPage from "./src/pages/SetupProfile/Auth/SignupPage";
 import CustomCategoryCard from "./src/components/molecules/CategoryCard";
-import BottomNavTab from "./src/components/molecules/BottomNavigationTab";
+import BottomNavTab from "./src/navigation/bottomNavigationTab";
 import ItemCard from "./src/components/molecules/ItemCard";
 import CustomCheckBox from "./src/components/atoms/CheckBox";
 import CustomHeader from "./src/components/molecules/Header";
 import CustomProfileHeader from "./src/components/molecules/ProfileHeader";
 import CustomSlider from "./src/components/atoms/Slider";
-import CustomItemSlideShow from "./src/components/atoms/ItemSlideShow";
+import CustomItemSlideShow from "./src/components/organisams/ItemSlideShow";
 import CustomCartItem from "./src/components/molecules/CartItems";
 import CustomDetailsCard from "./src/components/molecules/DetailsCard";
 import PDetialsForm from "./src/pages/SetupProfile/PersonalForms/PersonalInfoForm";
@@ -24,16 +24,17 @@ import {
   ExtendedRating,
   ExtendedSwitch,
   ExtendedView,
+  ExtendedItemSlide,
 } from "./src/components/atoms";
 import { itemsCardData } from "./src/data/itemsCardData";
 import { CustomFlexText, CustomSettingsCard } from "./src/components/molecules";
-import ExtendedItemSlide from "./src/components/atoms/ItemSlideShow";
 import {
   CustomBottomSheet,
   CustomCartItems,
   LogoutActionSheet,
   ProfileSettingCards,
   ItemsFilter,
+  CustomLogoutBottomSheet,
 } from "./src/components/organisams";
 import { itemsCartData } from "./src/data/cartItems";
 import PaymentDetailsPage from "./src/pages/BottomNavBar/Shop/PaymentDetails";
@@ -58,6 +59,7 @@ import NotificationsPage from "./src/pages/BottomNavBar/Profile/Notifications";
 import ProductsPage from "./src/pages/BottomNavBar/Home/ProductsPage";
 import WalletPage from "./src/pages/BottomNavBar/Home/WalletPage";
 import CartItemPage from "./src/pages/BottomNavBar/Shop/CartItem";
+import ShopItemPage from "./src/pages/BottomNavBar/Shop/ShopItem";
 
 export default function App() {
   return (
@@ -146,9 +148,12 @@ export default function App() {
         </ExtendedView> */}
         {/* <MyProfilePage /> */}
         {/* <MyDetailsPage /> */}
-        <NotificationsPage />
+        {/* <NotificationsPage /> */}
         {/* <LogoutActionSheet /> */}
-        {/* <Main /> */}
+        {/* <ExtendedItemSlide /> */}
+        {/* <ShopItemPage /> */}
+        <Main />
+        {/* <CustomLogoutBottomSheet /> */}
       </View>
     </>
   );
@@ -162,21 +167,21 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
     // padding: 22,
   },
-  imgContainer: {
-    borderWidth: 2,
-    borderColor: "#111",
-  },
-  profileNameStyle: {
-    fontSize: 18,
-    fontWeight: "700",
-    marginTop: 10,
-    alignSelf: "center",
-  },
-  nameTagStyle: {
-    fontSize: 12,
-    fontWeight: "400",
-    marginTop: 6,
-    alignSelf: "center",
-    color: "#9B9B9B",
-  },
+  // imgContainer: {
+  //   borderWidth: 2,
+  //   borderColor: "#111",
+  // },
+  // profileNameStyle: {
+  //   fontSize: 18,
+  //   fontWeight: "700",
+  //   marginTop: 10,
+  //   alignSelf: "center",
+  // },
+  // nameTagStyle: {
+  //   fontSize: 12,
+  //   fontWeight: "400",
+  //   marginTop: 6,
+  //   alignSelf: "center",
+  //   color: "#9B9B9B",
+  // },
 });

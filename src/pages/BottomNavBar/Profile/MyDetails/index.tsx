@@ -15,8 +15,10 @@ import {
 } from "../../../../components/molecules";
 import { CalenderIcon, EyeIcon } from "../../../../../svgs";
 import { CustomMyProfile } from "../../../../components/molecules";
+import { useNavigation } from "@react-navigation/native";
 
 const MyDetailsPage = () => {
+  const navigation: any = useNavigation();
   const [activeButton, setActiveButton] = useState("Save");
   return (
     <BasicLayout>
@@ -26,6 +28,7 @@ const MyDetailsPage = () => {
             <CustomHeader
               leftSource={require("../../../../../assets/arrow.png")}
               title="Cart Item"
+              onArrowPress={() => navigation.navigate("MyProfilePage")}
             />
           </ExtendedView>
 

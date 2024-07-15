@@ -12,6 +12,7 @@ import {
 import Eye from "../../../../../svgs/Eye";
 import GoogleIcon from "../../../../../svgs/GoogleIcon";
 import { useNavigation } from "@react-navigation/native";
+import Routes from "../../../../routes";
 
 export default function SignUpPage() {
   const navigation: any = useNavigation();
@@ -57,7 +58,7 @@ export default function SignUpPage() {
       <CustomButton
         title="Signup"
         style={styles.sigin}
-        onPress={() => navigation?.navigate("SigninPage")}
+        onPress={() => navigation?.navigate(Routes.PDetialsForm)}
       />
       <CustomButton
         title="Signin with google"

@@ -16,6 +16,8 @@ import {
   yesterdayNotificationData,
   lastWeekNotificationData,
 } from "../../../../data";
+import { useNavigation } from "@react-navigation/native";
+import Routes from "../../../../routes";
 
 const iconMap = {
   BagIcon: <BagIcon />,
@@ -24,6 +26,7 @@ const iconMap = {
 };
 
 const NotificationsPage = () => {
+  const navigation: any = useNavigation();
   return (
     <BasicLayout>
       <ExtendedScrollView>
@@ -31,7 +34,9 @@ const NotificationsPage = () => {
           <ExtendedView style={styles.hearderStyle}>
             <CustomHeader
               leftSource={require("../../../../../assets/arrow.png")}
-              title="Cart Item"
+              title="Notifications"
+              onArrowPress={() => navigation.goBack()}
+              titleStyle={styles.title}
             />
           </ExtendedView>
 
@@ -88,9 +93,16 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     width: 360,
+    paddingBottom: "12%",
   },
   hearderStyle: {
     marginTop: 20,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "700",
+    width: 120,
+    paddingLeft: "3%",
   },
   textStyle: {
     marginLeft: 32,

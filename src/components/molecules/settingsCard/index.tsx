@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 28,
     width: 300,
+    marginVertical: "2%",
   },
   styleheader: {
     height: 70,

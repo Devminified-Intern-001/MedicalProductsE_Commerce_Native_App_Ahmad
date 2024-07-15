@@ -8,14 +8,16 @@ interface ItemsCardData {
   itemTitle: string;
   priceTitle: string;
   newPriceTitle?: string;
+  backgroundColor?: string;
 }
 
 interface CartItemsProps {
   style?: object;
   cartData: ItemsCardData[];
+  onDelete: (index: number) => void;
 }
 
-const CustomCartItems = ({ cartData }: CartItemsProps) => {
+const CustomCartItems = ({ cartData, onDelete }: CartItemsProps) => {
   return (
     <ExtendedView style={styles.row}>
       {cartData.map((data, index) => (
@@ -25,8 +27,10 @@ const CustomCartItems = ({ cartData }: CartItemsProps) => {
           priceTitle={data.priceTitle}
           newPriceTitle={data.newPriceTitle}
           leftSource={data.leftSource}
+          backgroundColor={data.backgroundColor}
           minusSource={require("../../../../assets/minus.png")}
           addSource={require("../../../../assets/add.png")}
+          onDelete={() => onDelete(index)}
         />
       ))}
     </ExtendedView>
@@ -36,10 +40,8 @@ const CustomCartItems = ({ cartData }: CartItemsProps) => {
 const styles = StyleSheet.create({
   row: {
     flexDirection: "column",
-    flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    gap: 20,
   },
 });
 
