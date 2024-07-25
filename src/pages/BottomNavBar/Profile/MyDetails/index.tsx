@@ -27,7 +27,8 @@ const MyDetailsPage = () => {
           <ExtendedView style={styles.hearderStyle}>
             <CustomHeader
               leftSource={require("../../../../../assets/arrow.png")}
-              title="Cart Item"
+              title="My Details"
+              titleStyle={styles.title}
               onArrowPress={() => navigation.navigate("MyProfilePage")}
             />
           </ExtendedView>
@@ -35,16 +36,12 @@ const MyDetailsPage = () => {
           <ExtendedView style={styles.spacing}>
             <CustomMyProfile
               imgSource={require("../../../../../assets/myProfileImg.png")}
-              profileName="James Jones"
-              nameTag="@jamesjones"
               imgSourceStyle={styles.imgSourceStyle}
-              profileNameStyle={styles.profileNameStyle}
-              nameTagStyle={styles.nameTagStyle}
             />
           </ExtendedView>
 
           <ExtendedView style={styles.inputsContainer}>
-            <ExtendedView style={styles.spacing}>
+            <ExtendedView>
               <ExtendedText style={styles.inputTitle}>User Name</ExtendedText>
               <CustomInput
                 placeholder="jamesjones"
@@ -144,35 +141,28 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     width: "100%",
+    backgroundColor: "#fff",
   },
   hearderStyle: {
-    marginTop: 20,
+    marginBottom: "4%",
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "700",
   },
   imgSourceStyle: {
     alignSelf: "center",
     height: 90,
     width: 90,
+    marginTop: "4%",
   },
-  profileNameStyle: {
-    fontSize: 18,
-    fontWeight: "700",
-    marginTop: 10,
-    alignSelf: "center",
-  },
-  nameTagStyle: {
-    fontSize: 12,
-    fontWeight: "400",
-    marginTop: 6,
-    alignSelf: "center",
-    color: "#9B9B9B",
-  },
+
   spacing: {
-    marginTop: 16,
+    marginTop: "5%",
   },
   inputsContainer: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 10,
   },
   inputTitle: {
     marginLeft: 20,

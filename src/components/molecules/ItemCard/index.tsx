@@ -1,7 +1,12 @@
 import { Image, ImageSourcePropType, StyleSheet } from "react-native";
-import { ExtendedView, ExtendedText } from "../../atoms";
+import {
+  ExtendedView,
+  ExtendedText,
+  ExtendedTouchableOpacity,
+} from "../../atoms";
 import { Card, CardProps } from "react-native-elements";
 import React, { ReactNode } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 interface UiItemCard extends CardProps {
   children?: ReactNode;
@@ -19,9 +24,11 @@ interface UiItemCard extends CardProps {
   priceDetail?: object;
   cardLayoutStyle?: object;
   backgroundColor?: string;
+  onPress?: () => void;
 }
 
 const ItemCard = (props: UiItemCard) => {
+  const navigation: any = useNavigation();
   const {
     title,
     source,
@@ -38,6 +45,7 @@ const ItemCard = (props: UiItemCard) => {
     priceDetail,
     children,
     backgroundColor,
+    onPress,
     ...rest
   } = props;
   return (
@@ -46,37 +54,41 @@ const ItemCard = (props: UiItemCard) => {
       {...(rest as any)}
     >
       <ExtendedView>
-        <ExtendedView style={[styles.flex, flexStyle]}>
-          <ExtendedView
-            style={[
-              styles.itemImage,
-              imgCoverStyle,
-              { backgroundColor: backgroundColor },
-            ]}
-          >
-            <Image
-              source={source}
-              style={[styles.imageStyle, imageStyle]}
-            ></Image>
-          </ExtendedView>
-          <ExtendedView style={[styles.itemDetails, detailsStyle]}>
-            <ExtendedText style={[styles.itemTitle, itemTitle]}>
-              {title}
-            </ExtendedText>
-            <ExtendedText style={[styles.description, description]}>
-              {itemDescrip}
-            </ExtendedText>
-            <ExtendedView style={[styles.priceDetail, priceDetail]}>
-              <ExtendedText style={styles.itPrice}>{itemPrice} $</ExtendedText>
-              {itemQt && (
-                <ExtendedText style={styles.itQuant}>
-                  {itemQt} kg Price
-                </ExtendedText>
-              )}
+        <ExtendedTouchableOpacity onPress={onPress}>
+          <ExtendedView style={[styles.flex, flexStyle]}>
+            <ExtendedView
+              style={[
+                styles.itemImage,
+                imgCoverStyle,
+                { backgroundColor: backgroundColor },
+              ]}
+            >
+              <Image
+                source={source}
+                style={[styles.imageStyle, imageStyle]}
+              ></Image>
             </ExtendedView>
-            {children && <ExtendedView>{children}</ExtendedView>}
+            <ExtendedView style={[styles.itemDetails, detailsStyle]}>
+              <ExtendedText style={[styles.itemTitle, itemTitle]}>
+                {title}
+              </ExtendedText>
+              <ExtendedText style={[styles.description, description]}>
+                {itemDescrip}
+              </ExtendedText>
+              <ExtendedView style={[styles.priceDetail, priceDetail]}>
+                <ExtendedText style={styles.itPrice}>
+                  {itemPrice} $
+                </ExtendedText>
+                {itemQt && (
+                  <ExtendedText style={styles.itQuant}>
+                    {itemQt} kg Price
+                  </ExtendedText>
+                )}
+              </ExtendedView>
+              {children && <ExtendedView>{children}</ExtendedView>}
+            </ExtendedView>
           </ExtendedView>
-        </ExtendedView>
+        </ExtendedTouchableOpacity>
       </ExtendedView>
     </Card>
   );
@@ -111,6 +123,7 @@ const styles = StyleSheet.create({
     width: 120,
     alignSelf: "center",
   },
+
   itemDetails: {
     height: 56,
     marginTop: 5,

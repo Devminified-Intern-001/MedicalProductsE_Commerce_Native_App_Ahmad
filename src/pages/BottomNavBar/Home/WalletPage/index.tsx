@@ -19,7 +19,7 @@ const WalletPage = () => {
     setActiveButton(button);
   };
   return (
-    <ExtendedView>
+    <ExtendedView style={styles.container}>
       <ExtendedView style={styles.header}>
         <CustomProfileHeader
           topTitle="Hi,James!"
@@ -84,6 +84,10 @@ const WalletPage = () => {
 export default WalletPage;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#fff",
+    paddingBottom: "10%",
+  },
   header: {
     justifyContent: "center",
     alignItems: "center",

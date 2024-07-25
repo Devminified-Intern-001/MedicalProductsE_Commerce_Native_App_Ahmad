@@ -23,7 +23,6 @@ const BottomNavigationTab = () => {
         tabBarStyle: {
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
-          // position: "absolute",
         },
       }}
     >

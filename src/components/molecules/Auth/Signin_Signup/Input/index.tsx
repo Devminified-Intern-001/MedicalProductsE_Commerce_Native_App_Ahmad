@@ -8,6 +8,8 @@ interface UiInputProps {
   righticon?: ReactNode;
   placeholder: string;
   style?: object;
+  value?: string;
+  onChangeText?: (text: string) => void;
   keyboardType?: "default" | "numeric" | "email-address" | "phone-pad";
   secureTextEntry?: boolean;
 }
@@ -21,6 +23,8 @@ const CustomInput: React.FC<UiInputProps> = (props: UiInputProps) => {
     style,
     keyboardType = "default",
     secureTextEntry = true,
+    value,
+    onChangeText,
     ...rest
   } = props;
   return (
@@ -34,6 +38,8 @@ const CustomInput: React.FC<UiInputProps> = (props: UiInputProps) => {
           placeholder={placeholder}
           keyboardType={keyboardType}
           secureTextEntry={secureTextEntry}
+          value={value}
+          onChangeText={onChangeText}
           {...rest}
         />
         {righticon && (

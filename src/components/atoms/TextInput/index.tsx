@@ -2,7 +2,7 @@ import { TextInput, TextInputProps } from "react-native";
 import React from "react";
 
 interface UiInputProps extends TextInputProps {
-  placeholder: string;
+  placeholder?: string;
   keyboardType?: "default" | "numeric" | "email-address" | "phone-pad";
   secureTextEntry?: boolean;
 }

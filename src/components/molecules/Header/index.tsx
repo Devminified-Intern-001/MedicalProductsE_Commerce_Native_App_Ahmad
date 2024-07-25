@@ -3,7 +3,6 @@ import { ExtendedView, ExtendedText } from "../../atoms";
 import React from "react";
 import { Header } from "react-native-elements";
 import { ExtendedTouchableOpacity } from "../../atoms";
-// import { color } from 'react-native-elements/dist/helpers'
 
 interface UiHeader {
   leftSource?: ImageSourcePropType;
@@ -23,7 +22,10 @@ const CustomHeader = (props: UiHeader) => {
       leftComponent={
         leftSource && (
           <ExtendedView style={styles.leftImgContainer}>
-            <ExtendedTouchableOpacity onPress={onArrowPress}>
+            <ExtendedTouchableOpacity
+              onPress={onArrowPress}
+              style={styles.touchableArea}
+            >
               <Image source={leftSource} />
             </ExtendedTouchableOpacity>
           </ExtendedView>
@@ -54,18 +56,22 @@ const CustomHeader = (props: UiHeader) => {
 const styles = StyleSheet.create({
   styleheader: {
     height: 70,
-    width: "100%",
+    width: "96%",
     backgroundColor: "transparent",
+    alignSelf: "center",
     borderBottomWidth: 0,
     padding: 0,
   },
   leftImgContainer: {
     height: 45,
-    width: 25,
+    width: 45,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 11,
-    marginLeft: "45%",
+    marginLeft: "10%",
+  },
+  touchableArea: {
+    padding: "8%",
   },
   itemContainer: {
     width: 100,

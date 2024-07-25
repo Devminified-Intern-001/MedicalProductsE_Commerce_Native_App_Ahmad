@@ -2,15 +2,17 @@ import { StyleSheet } from "react-native";
 import {
   ExtendedView,
   ExtendedSwitch,
-  ExtendedText,
   ExtendedSlider,
   ExtendedCheckBox,
-  ExtendedInput,
 } from "../../atoms";
-import React from "react";
+import React, { useState } from "react";
 import { CustomFlexText } from "../../molecules";
 import DropDownArrow from "../../../../svgs/DropDownArrow";
+
 const ItemsFilter = () => {
+  const [selectedDiet, setSelectedDiet] = useState(null);
+  const dietOptions = ["Sugar Free", "Low Fat", "Fat-Free", "Vegan"];
+
   return (
     <ExtendedView style={styles.container}>
       <ExtendedView style={styles.formContainer}>
@@ -59,20 +61,6 @@ const ItemsFilter = () => {
           <ExtendedView style={styles.sliderStyle}>
             <ExtendedSlider />
           </ExtendedView>
-
-          <ExtendedView style={styles.slideRange}>
-            <ExtendedInput
-              placeholder="0"
-              keyboardType="numeric"
-              style={styles.rangeInput}
-            />
-            <ExtendedText style={styles.textStyle}>To</ExtendedText>
-            <ExtendedInput
-              placeholder="150"
-              keyboardType="numeric"
-              style={styles.rangeInput}
-            />
-          </ExtendedView>
         </ExtendedView>
 
         <ExtendedView style={styles.horizontalLine}></ExtendedView>
@@ -89,13 +77,15 @@ const ItemsFilter = () => {
         </ExtendedView>
 
         <ExtendedView style={styles.checkBoxContainer}>
-          <ExtendedCheckBox
-            title="Sugar Free"
-            containerStyle={styles.checkBox}
-          />
-          <ExtendedCheckBox title="Low Fat" containerStyle={styles.checkBox} />
-          <ExtendedCheckBox title="Fat-Free" containerStyle={styles.checkBox} />
-          <ExtendedCheckBox title="Vegan" containerStyle={styles.checkBox} />
+          {dietOptions.map((diet) => (
+            <ExtendedCheckBox
+              key={diet}
+              title={diet}
+              checked={selectedDiet === diet}
+              onPress={() => setSelectedDiet(diet)}
+              containerStyle={styles.checkBox}
+            />
+          ))}
         </ExtendedView>
       </ExtendedView>
     </ExtendedView>
@@ -151,30 +141,7 @@ const styles = StyleSheet.create({
   sliderStyle: {
     marginHorizontal: "2%",
   },
-  slideRange: {
-    flexDirection: "row",
-    width: "80%",
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "4%",
-    marginBottom: "12%",
-  },
-  rangeInput: {
-    width: 75,
-    height: 38,
-    borderRadius: 5,
-    backgroundColor: "#D9D9D966",
-    borderWidth: 1,
-    borderColor: "#FBD54E",
-    textAlign: "center",
-  },
-  textStyle: {
-    marginHorizontal: "16%",
-    fontSize: 13,
-    fontWeight: "400",
-    color: "#909090",
-  },
+
   titleText: {
     fontSize: 16,
     fontWeight: "700",

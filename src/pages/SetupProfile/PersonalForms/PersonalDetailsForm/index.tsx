@@ -45,7 +45,7 @@ const PersonalDetails = () => {
               </ExtendedText>
             </ExtendedView>
 
-            <ExtendedView style={styles.alignText}>
+            <ExtendedView>
               <ExtendedText style={styles.textStyle}>
                 First started 2 years ago (at age 43)
               </ExtendedText>
@@ -63,25 +63,21 @@ const PersonalDetails = () => {
               <ExtendedText style={styles.textColor}>
                 My Symptoms (all, including before an effective treatment):
               </ExtendedText>
-              <ExtendedText style={[styles.textStyle, styles.alignText]}>
-                James
-              </ExtendedText>
+              <ExtendedText style={styles.textStyle}>James</ExtendedText>
             </ExtendedView>
 
             <ExtendedView style={styles.spacing}>
               <ExtendedText style={styles.textColor}>
                 Treatments I've tried to date:
               </ExtendedText>
-              <ExtendedText style={[styles.textStyle, styles.alignText]}>
-                6-15-2022
-              </ExtendedText>
+              <ExtendedText style={styles.textStyle}>6-15-2022</ExtendedText>
             </ExtendedView>
 
             <ExtendedView style={styles.spacing}>
               <ExtendedText style={styles.textColor}>
                 More about me:
               </ExtendedText>
-              <ExtendedText style={[styles.textStyle, styles.alignText]}>
+              <ExtendedText style={styles.textStyle}>
                 Lorem Ipsum is simply dummy text of the printing industry.
               </ExtendedText>
             </ExtendedView>
@@ -130,18 +126,16 @@ const styles = StyleSheet.create({
   profileSection: {
     width: "100%",
     height: "22%",
-    bottom: 6,
+    bottom: "2%",
   },
   profileImg: {
-    height: 70,
-    width: 70,
+    height: "82%",
+    width: "82%",
     backgroundColor: "transparent",
-    marginBottom: 20,
-    right: 10,
   },
   profile: {
-    marginLeft: "52%",
-    marginTop: 14,
+    width: "100%",
+    marginTop: "9%",
   },
   subContainer: {
     maxWidth: "90%",
@@ -154,7 +148,7 @@ const styles = StyleSheet.create({
   },
   flexBox: {
     flexDirection: "row",
-    marginVertical: 8,
+    marginVertical: "3%",
   },
   boldText: {
     fontSize: 11,
@@ -164,36 +158,32 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: "#9B9B9B",
     fontWeight: "400",
-    marginLeft: 5,
   },
-  alignText: {
-    right: 4,
-  },
+
   horizontalLine: {
     backgroundColor: "#00000024",
     height: 2,
-    marginVertical: 20,
+    marginVertical: "10%",
   },
   bolderText: {
     fontSize: 13,
     fontWeight: "700",
-    marginBottom: 6,
+    marginBottom: "3%",
   },
   textColor: {
     fontSize: 11,
     fontWeight: "400",
     color: "#3F4254",
-    marginBottom: 4,
+    marginBottom: "2%",
   },
   spacing: {
-    marginVertical: 6,
+    marginVertical: "2%",
   },
   next: {
-    // marginTop: "6%",
-    height: 50,
+    height: "7%",
     alignSelf: "center",
     width: "77%",
-    top: 16,
+    top: "3%",
   },
 });
 export default PersonalDetails;

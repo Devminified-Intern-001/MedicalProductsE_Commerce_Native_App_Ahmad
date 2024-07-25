@@ -33,7 +33,7 @@ const PDetialsForm = () => {
           <ExtendedView style={styles.reviewParagraph}>
             <ExtendedText style={styles.reviewText}>
               Your answers to the following questions are treated as personal
-              information according to our{" "}
+              information according to our
               <ExtendedText style={styles.highlightWords}>
                 Privacy Policy
               </ExtendedText>
@@ -174,9 +174,10 @@ const styles = StyleSheet.create({
     color: "#FFCC00",
   },
   userText: {
-    width: 234,
+    width: "80%",
     fontSize: 13,
     alignSelf: "flex-start",
+    marginLeft: "7%",
   },
   detailsContainer: {
     width: "98%",
@@ -185,10 +186,14 @@ const styles = StyleSheet.create({
   spacing: {
     marginTop: 24,
     marginBottom: 10,
+    width: "81%",
   },
   checkBox: {
     flexDirection: "row",
-    width: "76%",
+    width: "74%",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: "4%",
   },
   sigin: {
     marginTop: 30,

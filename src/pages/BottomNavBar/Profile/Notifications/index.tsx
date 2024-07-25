@@ -94,9 +94,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 360,
     paddingBottom: "12%",
+    backgroundColor: "#fff",
   },
   hearderStyle: {
-    marginTop: 20,
+    marginBottom: "3%",
   },
   title: {
     fontSize: 20,

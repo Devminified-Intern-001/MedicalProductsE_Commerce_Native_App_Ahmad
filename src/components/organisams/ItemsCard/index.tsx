@@ -3,6 +3,8 @@ import { StyleSheet, ImageSourcePropType } from "react-native";
 import { ExtendedView } from "../../atoms";
 import { ItemCard } from "../../molecules";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Routes from "../../../routes";
+import { useNavigation } from "@react-navigation/native";
 
 interface ItemsCartData {
   title: string;
@@ -19,6 +21,7 @@ interface CategoriesCardRowProps {
 }
 
 const CustomItemsCard = ({ cardData }: CategoriesCardRowProps) => {
+  const navigation: any = useNavigation();
   return (
     <SafeAreaView>
       <ExtendedView style={styles.row}>
@@ -38,6 +41,7 @@ const CustomItemsCard = ({ cardData }: CategoriesCardRowProps) => {
             itemTitle={styles.itemTitle}
             description={styles.description}
             priceDetail={styles.priceDetail}
+            onPress={() => navigation.navigate(Routes.ShopItems)}
           />
         ))}
       </ExtendedView>
@@ -54,9 +58,9 @@ const styles = StyleSheet.create({
     bottom: "8%",
   },
   cardLayout: {
-    minHeight: 190,
-    minWidth: 100,
-    maxWidth: 130,
+    minHeight: "25%",
+    minWidth: "36%",
+    maxWidth: "36%",
     paddingBottom: "6%",
     marginVertical: "8%",
   },

@@ -32,7 +32,7 @@ const ProductsPage = () => {
   return (
     <BasicLayout>
       <TouchableWithoutFeedback onPress={closeFilter}>
-        <ExtendedView>
+        <ExtendedView style={styles.container}>
           <ExtendedView style={styles.header}>
             <CustomHeader
               leftSource={require("../../../../../assets/arrow.png")}
@@ -54,14 +54,9 @@ const ProductsPage = () => {
             ></CustomInput>
           </ExtendedView>
           <ExtendedView>
-            <ExtendedTouchableOpacity
-              onPress={() => navigation.navigate(Routes.ShopItems)}
-              activeOpacity={1}
-            >
-              <ExtendedView style={styles.cardsLayout}>
-                <CustomItemsCard cardData={itemsCardData} />
-              </ExtendedView>
-            </ExtendedTouchableOpacity>
+            <ExtendedView style={styles.cardsLayout}>
+              <CustomItemsCard cardData={itemsCardData} />
+            </ExtendedView>
           </ExtendedView>
           <Modal
             visible={isFilterVisible}
@@ -82,6 +77,9 @@ const ProductsPage = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#fff",
+  },
   header: {
     marginBottom: "4%",
   },

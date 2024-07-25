@@ -5,17 +5,46 @@ import { CustomButton, CustomFlexText } from "../../molecules";
 import { LogoutIcon } from "../../../../svgs";
 import { useNavigation } from "@react-navigation/native";
 import Routes from "../../../routes";
+import api from "../../../interceptor";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "../../../context/authContext";
 
 const CustomLogoutBottomSheet = ({ onCancel }) => {
   const [activeButton, setActiveButton] = useState("Save");
   const navigation: any = useNavigation();
+  const [errorMessage, setErrorMessage] = useState("");
+  const { logout } = useAuth();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setActiveButton("Save");
-    navigation.reset({
-      index: 0,
-      routes: [{ name: Routes.Auth, params: { screen: Routes.SigninPage } }],
-    });
+    try {
+      const refresh = await AsyncStorage.getItem("@refresh_token");
+
+      console.log("Using refresh token for logout:", refresh);
+
+      if (refresh) {
+        const response = await api.post("/logOut", {
+          token: refresh,
+        });
+
+        if (response.data.done) {
+          console.log("Logout Successfully:", response.data.done);
+
+          logout();
+          navigation.reset({
+            index: 0,
+            routes: [
+              { name: Routes.Auth, params: { screen: Routes.SigninPage } },
+            ],
+          });
+        } else {
+          console.log("Logout failed:", response.data.message);
+        }
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+      setErrorMessage("An error occurred. Please try again.");
+    }
   };
 
   return (

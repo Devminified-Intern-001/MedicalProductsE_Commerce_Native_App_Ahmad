@@ -30,7 +30,9 @@ const CustomProfileHeader = (props: UiProfileHeader) => {
       containerStyle={styles.styleheader}
       leftComponent={
         <ExtendedView style={styles.leftContainer}>
-          <ExtendedText style={styles.topTextStyle}>{topTitle}</ExtendedText>
+          <ExtendedText style={styles.topTextStyle}>
+            Hi,{topTitle}!
+          </ExtendedText>
           <ExtendedText style={styles.bottomTextStyle}>
             {bottomTitle}
           </ExtendedText>

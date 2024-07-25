@@ -60,102 +60,15 @@ import ProductsPage from "./src/pages/BottomNavBar/Home/ProductsPage";
 import WalletPage from "./src/pages/BottomNavBar/Home/WalletPage";
 import CartItemPage from "./src/pages/BottomNavBar/Shop/CartItem";
 import ShopItemPage from "./src/pages/BottomNavBar/Shop/ShopItem";
+import { AuthProvider } from "./src/context/authContext";
 
 export default function App() {
   return (
-    <>
-      {/* <Main /> */}
-
-      <View style={styles.container}>
-        {/* <StatusBar style="auto" />; */}
-        {/* <SigninPage /> */}
-        {/* <SignUpPage /> */}
-        {/* <PDetialsForm /> */}
-        {/* <PersonalDetails /> */}
-        {/* <IntroSlider /> */}
-        {/* <SpecialOfferSlider /> */}
-        {/* <HomePage /> */}
-        {/* <ProductsPage /> */}
-        {/* <WalletPage /> */}
-        {/* <PaymentDetailsPage /> */}
-        {/* <ItemsFilter /> */}
-        {/* <CartItemPage /> */}
-        {/* <CustomCategoryCard
-        source={require("./assets/fruit2.png")}
-        title="Fruits"
-      ></CustomCategoryCard> */}
-        {/* <BottomNavTab /> */}
-        {/* <ItemCard
-        title="Carrot"
-        source={require("./assets/Carrots.png")}
-        itemDescrip="Cabbage is a vegitable source of fiber."
-        itemPrice="50"
-        itemQt="1"
-        flexStyle={styles.customFlex}
-        imageStyle={styles.imgStyle}
-        detailsStyle={styles.dtlStyle}
-      /> */}
-        {/* <CustomCheckBox title="Sugar Free" /> */}
-        {/* <CustomHeader
-        leftSource={require("./assets/arrow.png")}
-        title="Vegitables"
-        rightSource={require("./assets/menu.png")}
-      /> */}
-        {/* <ExtendedView>
-        <CustomItemsCard cardData={itemsCardData} />
-      </ExtendedView> */}
-        {/* <CustomProfileHeader
-        topTitle="Hi,James!"
-        bottomTitle="What would you buy today?"
-        rightSource={require("./assets/ProfileImg.png")}
-      /> */}
-        {/* <CustomSlider /> */}
-        {/* <CustomItemSlideShow /> */}
-        {/* <CustomCartItem
-        itemTitle="Carrot"
-        priceTitle="$3.45"
-        newPriceTitle="$3.75"
-        leftSource={require("./assets/Carrots.png")}
-        minusSource={require("./assets/minus.png")}
-        addSource={require("./assets/add.png")}
-      /> */}
-        {/* <CustomDetailsCard
-        leftSource={require("./assets/bag.png")}
-        titleText="My Details"
-        detailsText="Lorem Ipsum is simply dummy text."
-        style={styles.profSetting}
-        timeDuration={<Arrow />}
-        titleStyle={styles.titleStyle}
-        rightContentStyle={styles.rightContentStyle}
-      /> */}
-        {/* <ProfileSettingCards settingsCardData={settingCardData} /> */}
-        {/* <CustomFlexText title="Filter" textValue={<ExtendedSwitch />} /> */}
-        {/* <ExtendedSwitch /> */}
-        {/* <ExtendedRating /> */}
-        {/* <CustomCartItems cartData={itemsCartData} /> */}
-        {/* <GestureHandlerRootView> */}
-        {/* <PaymentDetailsPage /> */}
-        {/* <CustomBottomSheet /> */}
-        {/* </GestureHandlerRootView> */}
-        {/* <ExtendedView style={styles.imgContainer}>
-          <CustomMyProfile
-            imgSource={require("./assets/myProfileImg.png")}
-            profileName="James Jones"
-            nameTag="@jamesjones"
-            profileNameStyle={styles.profileNameStyle}
-            nameTagStyle={styles.nameTagStyle}
-          />
-        </ExtendedView> */}
-        {/* <MyProfilePage /> */}
-        {/* <MyDetailsPage /> */}
-        {/* <NotificationsPage /> */}
-        {/* <LogoutActionSheet /> */}
-        {/* <ExtendedItemSlide /> */}
-        {/* <ShopItemPage /> */}
+    <AuthProvider>
+      <ExtendedView style={styles.container}>
         <Main />
-        {/* <CustomLogoutBottomSheet /> */}
-      </View>
-    </>
+      </ExtendedView>
+    </AuthProvider>
   );
 }
 

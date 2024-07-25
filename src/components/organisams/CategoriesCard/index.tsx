@@ -2,6 +2,8 @@ import React from "react";
 import { StyleSheet, ImageSourcePropType } from "react-native";
 import CustomCategoryCard from "../../molecules/CategoryCard";
 import { ExtendedText, ExtendedView } from "../../atoms";
+import { useNavigation } from "@react-navigation/native";
+import Routes from "../../../routes";
 
 interface CardData {
   title: string;
@@ -15,6 +17,7 @@ interface CategoriesCardRowProps {
 }
 
 const CustomCategoriesCard = ({ cardData }: CategoriesCardRowProps) => {
+  const navigation: any = useNavigation();
   return (
     <ExtendedView>
       <ExtendedView style={styles.cardTitle}>
@@ -28,6 +31,7 @@ const CustomCategoriesCard = ({ cardData }: CategoriesCardRowProps) => {
             title={data.title}
             source={data.source}
             backgroundColor={data.backgroundColor}
+            onPress={() => navigation.navigate(Routes.BottomNavBar)}
           />
         ))}
       </ExtendedView>
