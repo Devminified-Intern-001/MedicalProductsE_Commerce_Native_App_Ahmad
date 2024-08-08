@@ -55,7 +55,7 @@ const HomePage = () => {
         <ExtendedView style={styles.header}>
           <CustomProfileHeader
             topTitle={userData?.userName || "User"}
-            bottomTitle="What would you buy ?"
+            bottomTitle="What would you buy today?"
             rightSource={require("../../../../../assets/personProfileImg.png")}
           />
         </ExtendedView>

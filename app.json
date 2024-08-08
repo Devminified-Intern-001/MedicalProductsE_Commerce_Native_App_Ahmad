@@ -30,6 +30,20 @@
       "eas": {
         "projectId": "4fc99e0a-58fa-4a39-8aa1-ae0daff85742"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      [
+        "@stripe/stripe-react-native",
+        {
+          "enableGooglePay": false
+        }
+      ]
+    ]
   }
 }

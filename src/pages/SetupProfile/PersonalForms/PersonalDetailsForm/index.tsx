@@ -10,9 +10,18 @@ import { ProfileImgIcon } from "../../../../../svgs";
 import { BasicLayout } from "../../../../layout";
 import { useNavigation } from "@react-navigation/native";
 import Routes from "../../../../routes";
+import { useAuth } from "../../../../context/authContext";
 
 const PersonalDetails = () => {
   const navigation: any = useNavigation();
+  const { userData } = useAuth();
+
+  const userName = userData?.userName || "Default Name";
+  console.log("UserName", userData.userName);
+  const age = userData?.dateOfBirth || "N/A";
+  const indicators = userData?.indicators || "N/A";
+  const startTime = userData?.startTime || "N/A";
+  const atAge = parseInt(age) - parseInt(startTime);
 
   return (
     <BasicLayout>
@@ -26,8 +35,8 @@ const PersonalDetails = () => {
       <ExtendedView style={styles.detailsForm}>
         <CustomDetailsCard
           leftSource={<ProfileImgIcon />}
-          titleText="James Jones"
-          detailsText="45 year old man"
+          titleText={userName}
+          detailsText={`${age} year old`}
           backgroundColor="#FFF"
           style={styles.profileSection}
           detailsTextStyle={styles.profile}
@@ -37,18 +46,21 @@ const PersonalDetails = () => {
         <ExtendedView style={styles.subContainer}>
           <ExtendedView style={styles.profileDetails}>
             <ExtendedView style={styles.flexBox}>
-              <ExtendedText style={styles.boldText}>
-                Diagnosed with:
-              </ExtendedText>
-              <ExtendedText style={styles.textStyle}>
-                Chronic kidney disease.
-              </ExtendedText>
+              <ExtendedText
+                title="Diagnosed with: "
+                style={styles.boldText}
+              ></ExtendedText>
+              <ExtendedText
+                title={indicators}
+                style={styles.textStyle}
+              ></ExtendedText>
             </ExtendedView>
 
             <ExtendedView>
-              <ExtendedText style={styles.textStyle}>
-                First started 2 years ago (at age 43)
-              </ExtendedText>
+              <ExtendedText
+                style={styles.textStyle}
+                title={`First started ${age} years ago (at age ${atAge})`}
+              ></ExtendedText>
             </ExtendedView>
           </ExtendedView>
 
@@ -63,7 +75,10 @@ const PersonalDetails = () => {
               <ExtendedText style={styles.textColor}>
                 My Symptoms (all, including before an effective treatment):
               </ExtendedText>
-              <ExtendedText style={styles.textStyle}>James</ExtendedText>
+              <ExtendedText
+                style={styles.textStyle}
+                title={userName}
+              ></ExtendedText>
             </ExtendedView>
 
             <ExtendedView style={styles.spacing}>

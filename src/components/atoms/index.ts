@@ -8,6 +8,7 @@ import ExtendedScrollView from "./ScrollView";
 import ExtendedItemsText from "./ItemsText";
 import ExtendedSwitch from "./Switch";
 import ExtendedRating from "./Rating";
+import PickerList from "./PickerList";
 export {
   ExtendedTouchableOpacity,
   ExtendedCheckBox,
@@ -19,4 +20,5 @@ export {
   ExtendedSwitch,
   ExtendedRating,
   ExtendedItemsText,
+  PickerList,
 };

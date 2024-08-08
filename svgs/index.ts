@@ -17,6 +17,7 @@ import TickIcon from "./TickIcon";
 import SearchIcon from "./Search";
 import TrashIcon from "./TrashIcon";
 import ShoppingCartIcon from "./ShopingCart";
+import CameraIcon from "./CameraIcon";
 export {
   ProfileIcon,
   Arrow,
@@ -37,4 +38,5 @@ export {
   SearchIcon,
   TrashIcon,
   ShoppingCartIcon,
+  CameraIcon,
 };

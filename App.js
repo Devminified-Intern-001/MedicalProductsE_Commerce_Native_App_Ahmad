@@ -25,6 +25,7 @@ import {
   ExtendedSwitch,
   ExtendedView,
   ExtendedItemSlide,
+  PickerList,
 } from "./src/components/atoms";
 import { itemsCardData } from "./src/data/itemsCardData";
 import { CustomFlexText, CustomSettingsCard } from "./src/components/molecules";
@@ -66,7 +67,9 @@ export default function App() {
   return (
     <AuthProvider>
       <ExtendedView style={styles.container}>
+        {/* <PickerList /> */}
         <Main />
+        {/* <PDetialsForm /> */}
       </ExtendedView>
     </AuthProvider>
   );

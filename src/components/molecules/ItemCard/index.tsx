@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 interface UiItemCard extends CardProps {
   children?: ReactNode;
   title: string;
-  itemPrice: string;
+  itemPrice: number;
   itemQt?: string;
   itemDescrip: string;
   source: ImageSourcePropType;
@@ -76,12 +76,10 @@ const ItemCard = (props: UiItemCard) => {
                 {itemDescrip}
               </ExtendedText>
               <ExtendedView style={[styles.priceDetail, priceDetail]}>
-                <ExtendedText style={styles.itPrice}>
-                  {itemPrice} $
-                </ExtendedText>
+                <ExtendedText style={styles.itPrice}>{itemPrice}$</ExtendedText>
                 {itemQt && (
                   <ExtendedText style={styles.itQuant}>
-                    {itemQt} kg Price
+                    {itemQt} Price
                   </ExtendedText>
                 )}
               </ExtendedView>

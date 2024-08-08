@@ -1,14 +1,13 @@
-// import Slider from "@react-native-community/slider";
 import React, { useState } from "react";
 import { Slider } from "react-native-elements";
 import { ThumbIcon } from "../../../../svgs";
 import { StyleSheet } from "react-native";
-import { ExtendedView, ExtendedInput, ExtendedText } from "../index";
+import { ExtendedView, ExtendedText } from "../index";
 
 type UISliderProps = React.ComponentProps<typeof Slider>;
 
 const ExtendedSlider: React.FC<UISliderProps> = (props) => {
-  const [value, setValue] = useState(75);
+  const [value, setValue] = useState(100);
   return (
     <ExtendedView>
       <Slider
@@ -17,8 +16,8 @@ const ExtendedSlider: React.FC<UISliderProps> = (props) => {
         thumbTintColor="#FBD54E"
         minimumValue={0}
         maximumValue={150}
-        value={value}
-        onValueChange={(value) => setValue(Math.round(value))}
+        value={props.value}
+        onValueChange={props.onValueChange}
         thumbStyle={styles.thumbStyle}
         trackStyle={styles.trackStyle}
         thumbProps={{
@@ -29,7 +28,7 @@ const ExtendedSlider: React.FC<UISliderProps> = (props) => {
       <ExtendedView style={styles.slideRange}>
         <ExtendedText style={styles.rangeInput}>0</ExtendedText>
         <ExtendedText style={styles.textStyle}>To</ExtendedText>
-        <ExtendedText style={styles.rangeInput}>{value}</ExtendedText>
+        <ExtendedText style={styles.rangeInput}>{props.value}</ExtendedText>
       </ExtendedView>
     </ExtendedView>
   );

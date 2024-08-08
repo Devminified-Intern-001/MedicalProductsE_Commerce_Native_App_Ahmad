@@ -1,9 +1,17 @@
-import { Text } from "react-native";
+import { Text, TextProps } from "react-native";
 import React from "react";
 
-type UIText = React.ComponentProps<typeof Text>;
-const ExtendedText: React.FC<UIText> = (props) => {
-  return <Text {...props} />;
+interface ExtendedTextProps extends TextProps {
+  title?: string;
+}
+
+const ExtendedText: React.FC<ExtendedTextProps> = ({ title, ...props }) => {
+  return (
+    <Text {...props}>
+      {title}
+      {props.children}
+    </Text>
+  );
 };
 
 export default ExtendedText;

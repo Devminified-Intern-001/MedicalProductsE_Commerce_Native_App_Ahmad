@@ -5,15 +5,17 @@ interface UiItemsTextProps extends TextProps {
   style?: object;
   itemName?: string;
   description?: string;
-  nutritionFacts?: string;
-  calories?: string;
+  servingsPerContainer?: string;
+  servingSize?: string;
+  amountsPerServing?: string;
 }
 
 const ExtendedItemsText: React.FC<UiItemsTextProps> = ({
   itemName,
   description,
-  nutritionFacts,
-  calories,
+  servingsPerContainer,
+  servingSize,
+  amountsPerServing,
   style,
   ...restProps
 }) => {
@@ -21,8 +23,9 @@ const ExtendedItemsText: React.FC<UiItemsTextProps> = ({
     <Text {...restProps} style={style}>
       <Text>{itemName}</Text>
       <Text>{description}</Text>
-      <Text>{nutritionFacts}</Text>
-      <Text>{calories}</Text>
+      <Text>{servingsPerContainer}</Text>
+      <Text>{servingSize}</Text>
+      <Text>{amountsPerServing}</Text>
     </Text>
   );
 };

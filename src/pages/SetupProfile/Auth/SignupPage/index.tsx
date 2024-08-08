@@ -16,6 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import Routes from "../../../../routes";
 import { BasicLayout } from "../../../../layout";
 import React, { useState } from "react";
+import { useAuth } from "../../../../context/authContext";
 
 export default function SignUpPage() {
   const [username, setUsername] = useState("");
@@ -23,6 +24,8 @@ export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigation: any = useNavigation();
+
+  const { setEmail: setGlobalEmail, signup } = useAuth();
 
   const handleSignUp = async () => {
     setErrorMessage("");
@@ -40,6 +43,12 @@ export default function SignUpPage() {
 
       if (response.data.done) {
         console.log("SignUp successful:", response.data.done);
+        setGlobalEmail(email);
+        signup({ userName: username, email });
+        console.log("UserName:", username);
+        console.log("Email:", email);
+        console.log("UserName:", signup);
+
         navigation.reset({
           index: 0,
           routes: [{ name: Routes.PDetialsForm }],
@@ -52,7 +61,7 @@ export default function SignUpPage() {
       }
     } catch (error) {
       console.error("SignUp failed:", error);
-      setErrorMessage("Some error occured");
+      setErrorMessage("Username or Email already exist");
     }
   };
 
@@ -82,7 +91,7 @@ export default function SignUpPage() {
         <ExtendedView style={styles.input}>
           <CustomInput
             placeholder="Enter User Name"
-            keyboardType="default"
+            keyboardType="email-address"
             value={username}
             onChangeText={setUsername}
           />

@@ -1,7 +1,5 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AuthContext } from "./context/authContext";
-import { useContext } from "react";
 
 const api = axios.create({
   baseURL: "https://medical-e-commerce-backend.vercel.app",
@@ -89,71 +87,3 @@ api.interceptors.response.use(
 );
 
 export default api;
-
-// import axios from "axios";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { AuthContext } from "./context/authContext";
-// import { useContext } from "react";
-
-// const api = axios.create({
-//   baseURL: "https://medical-e-commerce-backend.vercel.app",
-//   timeout: 10000,
-// });
-
-// api.interceptors.request.use(
-//   async (config) => {
-//     const token = await AsyncStorage.getItem("@token");
-//     if (token) {
-//       config.headers["Authorization"] = `Bearer ${token}`;
-//     }
-//     return config;
-//   },
-//   (error) => Promise.reject(error)
-// );
-
-// api.interceptors.response.use(
-//   (response) => response,
-//   async (error) => {
-//     const originalRequest = error.config;
-//     if (
-//       error.response &&
-//       error.response.status === 401 &&
-//       !originalRequest._retry
-//     ) {
-//       originalRequest._retry = true;
-
-//       const refreshToken = await AsyncStorage.getItem("@refresh_token");
-//       if (refreshToken) {
-//         try {
-//           const response = await axios.post(
-//             "https://medical-e-commerce-backend.vercel.app/refreshToken",
-//             { token: refreshToken }
-//           );
-
-//           const { access, refresh } = response.data;
-
-//           await AsyncStorage.setItem("@token", access);
-//           await AsyncStorage.setItem("@refresh_token", refresh);
-//           console.error("New access token:", access);
-//           console.error("New refresh token:", refresh);
-
-// const authContext = useContext(AuthContext);
-// authContext.login({
-//   access,
-//   refresh,
-//   userData: authContext.userData,
-// });
-
-//           originalRequest.headers["Authorization"] = `Bearer ${access}`;
-//           return api(originalRequest);
-//         } catch (refreshError) {
-//           console.error("Token refresh failed:", refreshError);
-//         }
-//       }
-//     }
-
-//     return Promise.reject(error);
-//   }
-// );
-
-// export default api;

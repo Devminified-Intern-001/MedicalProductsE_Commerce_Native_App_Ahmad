@@ -1,17 +1,60 @@
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import {
   ExtendedView,
   ExtendedSwitch,
   ExtendedSlider,
   ExtendedCheckBox,
+  ExtendedText,
 } from "../../atoms";
-import React, { useState } from "react";
 import { CustomFlexText } from "../../molecules";
 import DropDownArrow from "../../../../svgs/DropDownArrow";
+import api from "../../../interceptor";
 
-const ItemsFilter = () => {
-  const [selectedDiet, setSelectedDiet] = useState(null);
+const ItemsFilter = ({ closeFilter, onApplyFilter }) => {
+  const [selectedDiet, setSelectedDiet] = useState<string[]>([]);
+  const [onSales, setOnSales] = useState(false);
+  const [newArrivals, setNewArrivals] = useState(false);
+  const [maxPrice, setMaxPrice] = useState<number>(100);
+  const [errorMessage, setErrorMessage] = useState("");
   const dietOptions = ["Sugar Free", "Low Fat", "Fat-Free", "Vegan"];
+
+  const resetFilters = () => {
+    setSelectedDiet([]);
+    setOnSales(false);
+    setNewArrivals(false);
+    setMaxPrice(100);
+  };
+
+  const applyFilters = async () => {
+    try {
+      const response = await api.post("/product/get", {
+        onSales,
+        newArrivals,
+        maxPrice: Math.floor(maxPrice),
+        dietNeeds: selectedDiet,
+      });
+      console.log("Server response:", response.data);
+      if (response.data.done) {
+        console.log("Filter Applied:", response.data.done);
+        setErrorMessage(null);
+        onApplyFilter(response.data.message);
+      } else {
+        setErrorMessage(response.data.message);
+      }
+    } catch (error) {
+      console.error("Some error occur:", error);
+      setErrorMessage("Failed to fetch the data from server");
+    }
+  };
+
+  const toggleDiet = (diet: string) => {
+    if (selectedDiet.includes(diet)) {
+      setSelectedDiet(selectedDiet.filter((d) => d !== diet));
+    } else {
+      setSelectedDiet([...selectedDiet, diet]);
+    }
+  };
 
   return (
     <ExtendedView style={styles.container}>
@@ -21,6 +64,8 @@ const ItemsFilter = () => {
             title="Filter"
             textValue="Clear All"
             flexContainer={styles.flexContent}
+            onTitlePress={applyFilters}
+            onTextValuePress={resetFilters}
           />
         </ExtendedView>
 
@@ -31,7 +76,9 @@ const ItemsFilter = () => {
             <CustomFlexText
               title="On Sales"
               titleStyle={styles.titleLightText}
-              textValue={<ExtendedSwitch />}
+              textValue={
+                <ExtendedSwitch value={onSales} onValueChange={setOnSales} />
+              }
               flexContainer={styles.flexContent}
             />
           </ExtendedView>
@@ -40,7 +87,12 @@ const ItemsFilter = () => {
             <CustomFlexText
               title="New Arrivals"
               titleStyle={styles.titleLightText}
-              textValue={<ExtendedSwitch />}
+              textValue={
+                <ExtendedSwitch
+                  value={newArrivals}
+                  onValueChange={setNewArrivals}
+                />
+              }
               flexContainer={styles.flexContent}
             />
           </ExtendedView>
@@ -59,21 +111,26 @@ const ItemsFilter = () => {
           </ExtendedView>
 
           <ExtendedView style={styles.sliderStyle}>
-            <ExtendedSlider />
+            <ExtendedSlider
+              minimumValue={0}
+              maximumValue={150}
+              value={Math.round(maxPrice)}
+              onValueChange={(value) => {
+                setMaxPrice(value);
+              }}
+            />
           </ExtendedView>
         </ExtendedView>
 
         <ExtendedView style={styles.horizontalLine}></ExtendedView>
 
         <ExtendedView>
-          <ExtendedView>
-            <CustomFlexText
-              title="Dietary Needs"
-              titleStyle={styles.titleText}
-              textValue={<DropDownArrow />}
-              flexContainer={styles.flexContent}
-            />
-          </ExtendedView>
+          <CustomFlexText
+            title="Dietary Needs"
+            titleStyle={styles.titleText}
+            textValue={<DropDownArrow />}
+            flexContainer={styles.flexContent}
+          />
         </ExtendedView>
 
         <ExtendedView style={styles.checkBoxContainer}>
@@ -81,12 +138,15 @@ const ItemsFilter = () => {
             <ExtendedCheckBox
               key={diet}
               title={diet}
-              checked={selectedDiet === diet}
-              onPress={() => setSelectedDiet(diet)}
+              checked={selectedDiet.includes(diet)}
+              onPress={() => toggleDiet(diet)}
               containerStyle={styles.checkBox}
             />
           ))}
         </ExtendedView>
+        {errorMessage ? (
+          <ExtendedText style={styles.errorText}>{errorMessage}</ExtendedText>
+        ) : null}
       </ExtendedView>
     </ExtendedView>
   );
@@ -141,7 +201,6 @@ const styles = StyleSheet.create({
   sliderStyle: {
     marginHorizontal: "2%",
   },
-
   titleText: {
     fontSize: 16,
     fontWeight: "700",
@@ -157,5 +216,14 @@ const styles = StyleSheet.create({
     marginRight: 10,
     right: 18,
     height: 30,
+  },
+  errorText: {
+    color: "red",
+    marginTop: "8%",
+  },
+  rangeInput: {
+    fontSize: 16,
+    fontWeight: "400",
+    marginTop: 10,
   },
 });

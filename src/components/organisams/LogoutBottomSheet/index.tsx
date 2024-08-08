@@ -15,35 +15,55 @@ const CustomLogoutBottomSheet = ({ onCancel }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const { logout } = useAuth();
 
+  const attemptLogout = async (token: any) => {
+    try {
+      const response = await api.post("/logOut", { token });
+      if (response.data.done) {
+        console.log("Logout Successfully:", response.data.done);
+        return true;
+      } else {
+        console.log("Logout failed:", response.data.message);
+        setErrorMessage(response.data.message);
+        return false;
+      }
+    } catch (error) {
+      console.error("Error during logout attempt:", error);
+      return false;
+    }
+  };
+
   const handleLogout = async () => {
     setActiveButton("Save");
     try {
-      const refresh = await AsyncStorage.getItem("@refresh_token");
+      let refreshToken = await AsyncStorage.getItem("@refresh_token");
+      console.log("Using refresh token for logout:", refreshToken);
 
-      console.log("Using refresh token for logout:", refresh);
+      let logoutSuccess = await attemptLogout(refreshToken);
 
-      if (refresh) {
-        const response = await api.post("/logOut", {
-          token: refresh,
+      if (!logoutSuccess) {
+        refreshToken = await AsyncStorage.getItem("@refresh_token");
+        console.log(
+          "Retrying with latest refresh token for logout:",
+          refreshToken
+        );
+        logoutSuccess = await attemptLogout(refreshToken);
+      }
+
+      if (logoutSuccess) {
+        await AsyncStorage.removeItem("@token");
+        await AsyncStorage.removeItem("@refresh_token");
+        logout();
+        navigation.reset({
+          index: 0,
+          routes: [
+            { name: Routes.Auth, params: { screen: Routes.SigninPage } },
+          ],
         });
-
-        if (response.data.done) {
-          console.log("Logout Successfully:", response.data.done);
-
-          logout();
-          navigation.reset({
-            index: 0,
-            routes: [
-              { name: Routes.Auth, params: { screen: Routes.SigninPage } },
-            ],
-          });
-        } else {
-          console.log("Logout failed:", response.data.message);
-        }
+      } else {
+        setErrorMessage("Logout failed after retrying. Please try again.");
       }
     } catch (error) {
       console.error("Error during logout:", error);
-      setErrorMessage("An error occurred. Please try again.");
     }
   };
 
@@ -51,7 +71,7 @@ const CustomLogoutBottomSheet = ({ onCancel }) => {
     <ExtendedView style={styles.container}>
       <ExtendedView style={styles.bottomSheet}>
         <ExtendedText style={styles.textStyle}>
-          Are you sure want to log out?
+          Are you sure you want to log out?
         </ExtendedText>
 
         <ExtendedView style={styles.logoutIcon}>
@@ -80,6 +100,9 @@ const CustomLogoutBottomSheet = ({ onCancel }) => {
             onPress={handleLogout}
           />
         </ExtendedView>
+        {errorMessage ? (
+          <ExtendedText style={styles.errorText}>{errorMessage}</ExtendedText>
+        ) : null}
       </ExtendedView>
     </ExtendedView>
   );
@@ -90,7 +113,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "90%",
-    // height: "27%",
     alignSelf: "center",
   },
   bottomSheet: {
@@ -126,6 +148,10 @@ const styles = StyleSheet.create({
   },
   inactiveButton: {
     backgroundColor: "#FFF",
+  },
+  errorText: {
+    color: "red",
+    marginTop: 10,
   },
 });
 

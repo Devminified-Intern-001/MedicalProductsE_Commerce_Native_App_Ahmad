@@ -1,24 +1,87 @@
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import {
   ExtendedView,
   ExtendedText,
   ExtendedCheckBox,
   ExtendedScrollView,
+  PickerList,
 } from "../../../../components/atoms";
 import {
   CustomInput,
   CustomButton,
   AboutSection,
 } from "../../../../components/molecules";
-import React, { useState } from "react";
-import DropDownArrow from "../../../../../svgs/DropDownArrow";
 import { useNavigation } from "@react-navigation/native";
 import { BasicLayout } from "../../../../layout";
+import { useAuth } from "../../../../context/authContext";
+import api from "../../../../interceptor";
+import Routes from "../../../../routes";
 
 const PDetialsForm = () => {
   const navigation: any = useNavigation();
-  const [selectedGender, setSelectedGender] = useState(null);
+  const [selectedGender, setSelectedGender] = useState<string | null>(null);
   const genderOptions = ["Male", "Female", "Other"];
+  const { email } = useAuth();
+  const [userEmail, setUserEmail] = useState(email || "");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [location, setLocation] = useState("");
+  const [referrer, setReferrer] = useState("");
+  const [indicators, setIndicators] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const { signup } = useAuth();
+  const { userData } = useAuth();
+
+  const handleSubmittform = async () => {
+    setErrorMessage("");
+    if (!userEmail || !age || !gender || !location || !referrer) {
+      setErrorMessage("Required fields are missing");
+      return;
+    }
+    try {
+      const response = await api.post("/form/submitForm", {
+        email: userEmail,
+        age: age,
+        gender: gender,
+        location: location,
+        referrer: referrer,
+        indicators: indicators,
+        startTime: startTime,
+      });
+      console.log("UserName:", userData.userName);
+
+      console.log("Server response:", response.data);
+
+      if (response.data.done) {
+        console.log("Form Submitted:", response.data.done);
+
+        signup({
+          userName: userData.userName,
+          email: userEmail,
+          dateOfBirth: age,
+          gender: gender,
+          location: location,
+          indicators: indicators,
+          startTime: startTime,
+        });
+
+        navigation.reset({
+          index: 0,
+          routes: [{ name: Routes.PersonalDetails }],
+        });
+      } else {
+        console.log("Some fields are missing:", response.data.message);
+        setErrorMessage(
+          response.data.message || "This username already exists"
+        );
+      }
+    } catch (error) {
+      console.error("Form submission failed:", error);
+      setErrorMessage("Form submission failed");
+    }
+  };
 
   return (
     <BasicLayout>
@@ -26,7 +89,7 @@ const PDetialsForm = () => {
         <ExtendedView style={styles.container}>
           <ExtendedView style={styles.welcome}>
             <ExtendedText style={styles.welcomeText}>
-              Chronic Kindey Disease.
+              Chronic Kidney Disease.
             </ExtendedText>
           </ExtendedView>
 
@@ -38,8 +101,8 @@ const PDetialsForm = () => {
                 Privacy Policy
               </ExtendedText>
               . To protect your privacy the information used to generate these
-              insights is de-identified, aggregated, and analysed on a
-              no-name-basic.
+              insights is de-identified, aggregated, and analyzed on a no-name
+              basis.
             </ExtendedText>
           </ExtendedView>
 
@@ -48,27 +111,41 @@ const PDetialsForm = () => {
               <ExtendedText style={styles.userText}>1. Your email</ExtendedText>
             </ExtendedView>
             <CustomInput
-              placeholder="muhammadahmad@email.com"
+              placeholder={"Enter your email"}
               keyboardType="email-address"
-            ></CustomInput>
+              value={userEmail}
+              onChangeText={setUserEmail}
+            />
 
             <ExtendedView style={styles.spacing}>
               <ExtendedText style={styles.userText}>
-                2. What's bring you here?
+                2. What's bringing you here?
               </ExtendedText>
             </ExtendedView>
-            <CustomInput
-              placeholder="I have / had this condition"
-              keyboardType="default"
-              righticon={<DropDownArrow />}
-            ></CustomInput>
+            <ExtendedView style={styles.picker}>
+              <PickerList
+                items={[
+                  { label: "Friends", value: "friends" },
+                  { label: "Family", value: "family" },
+                  { label: "Social Media", value: "socialMedia" },
+                  { label: "Others", value: "others" },
+                ]}
+                value={referrer}
+                onValueChange={setReferrer}
+              />
+            </ExtendedView>
 
             <ExtendedView style={styles.spacing}>
               <ExtendedText style={styles.userText}>
                 3. How old are you?
               </ExtendedText>
             </ExtendedView>
-            <CustomInput placeholder="23" keyboardType="numeric"></CustomInput>
+            <CustomInput
+              placeholder="Enter your age"
+              keyboardType="email-address"
+              value={age}
+              onChangeText={setAge}
+            />
 
             <ExtendedView style={styles.spacing}>
               <ExtendedText style={styles.userText}>
@@ -76,12 +153,15 @@ const PDetialsForm = () => {
               </ExtendedText>
             </ExtendedView>
             <ExtendedView style={styles.checkBox}>
-              {genderOptions.map((gender) => (
+              {genderOptions.map((genderOption) => (
                 <ExtendedCheckBox
-                  key={gender}
-                  title={gender}
-                  checked={selectedGender === gender}
-                  onPress={() => setSelectedGender(gender)}
+                  key={genderOption}
+                  title={genderOption}
+                  checked={selectedGender === genderOption}
+                  onPress={() => {
+                    setSelectedGender(genderOption);
+                    setGender(genderOption);
+                  }}
                 />
               ))}
             </ExtendedView>
@@ -92,20 +172,24 @@ const PDetialsForm = () => {
               </ExtendedText>
             </ExtendedView>
             <CustomInput
-              placeholder="California"
-              keyboardType="default"
-            ></CustomInput>
+              placeholder="Enter City"
+              keyboardType="email-address"
+              value={location}
+              onChangeText={setLocation}
+            />
 
             <ExtendedView style={styles.spacing}>
               <ExtendedText style={styles.userText}>
                 6. If any, what tests / indicators are you following on an
-                ongoing basic?
+                ongoing basis?
               </ExtendedText>
             </ExtendedView>
             <CustomInput
               placeholder="I have some..."
-              keyboardType="default"
-            ></CustomInput>
+              keyboardType="email-address"
+              value={indicators}
+              onChangeText={setIndicators}
+            />
 
             <ExtendedView style={styles.spacing}>
               <ExtendedText style={styles.userText}>
@@ -114,19 +198,33 @@ const PDetialsForm = () => {
             </ExtendedView>
             <CustomInput
               placeholder="I have some..."
-              keyboardType="default"
-            ></CustomInput>
+              keyboardType="email-address"
+              value={indicators}
+              onChangeText={setIndicators}
+            />
 
             <ExtendedView style={styles.spacing}>
               <ExtendedText style={styles.userText}>
-                8. How much time has passed ?
+                8. How much time has passed?
               </ExtendedText>
             </ExtendedView>
-            <CustomInput placeholder="23" keyboardType="numeric"></CustomInput>
+            <CustomInput
+              placeholder="23"
+              keyboardType="email-address"
+              value={startTime}
+              onChangeText={setStartTime}
+            />
+
+            {errorMessage ? (
+              <ExtendedText style={styles.errorText}>
+                {errorMessage}
+              </ExtendedText>
+            ) : null}
+
             <CustomButton
               title="Submit"
               style={styles.sigin}
-              onPress={() => navigation.navigate("PersonalDetailsPage")}
+              onPress={handleSubmittform}
             />
           </ExtendedView>
 
@@ -179,6 +277,9 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginLeft: "7%",
   },
+  picker: {
+    height: "6%",
+  },
   detailsContainer: {
     width: "98%",
     alignItems: "center",
@@ -199,6 +300,10 @@ const styles = StyleSheet.create({
     marginTop: 30,
     height: 50,
     width: "78%",
+  },
+  errorText: {
+    color: "red",
+    marginTop: "8%",
   },
   aboutSection: {
     marginBottom: "7%",

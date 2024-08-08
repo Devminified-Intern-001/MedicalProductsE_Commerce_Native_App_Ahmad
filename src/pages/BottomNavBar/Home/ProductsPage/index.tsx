@@ -8,17 +8,16 @@ import {
   CustomItemsCard,
   ItemsFilter,
 } from "../../../../components/organisams";
-import { itemsCardData } from "../../../../data/itemsCardData";
 import Search from "../../../../../svgs/Search";
 import React, { useState } from "react";
 import { BasicLayout } from "../../../../layout";
 import { useNavigation } from "@react-navigation/native";
-import Routes from "../../../../routes";
 
 const ProductsPage = () => {
   const navigation: any = useNavigation();
-
   const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+
   const toggleFilterVisibility = () => {
     setIsFilterVisible(!isFilterVisible);
   };
@@ -27,6 +26,11 @@ const ProductsPage = () => {
     if (isFilterVisible) {
       setIsFilterVisible(false);
     }
+  };
+
+  const handleApplyFilter = (filterData: any[]) => {
+    setFilteredProducts(filterData);
+    closeFilter();
   };
 
   return (
@@ -55,7 +59,7 @@ const ProductsPage = () => {
           </ExtendedView>
           <ExtendedView>
             <ExtendedView style={styles.cardsLayout}>
-              <CustomItemsCard cardData={itemsCardData} />
+              <CustomItemsCard cardData={filteredProducts} />
             </ExtendedView>
           </ExtendedView>
           <Modal
@@ -66,7 +70,10 @@ const ProductsPage = () => {
           >
             <TouchableWithoutFeedback onPress={toggleFilterVisibility}>
               <ExtendedView style={styles.modalBackground}>
-                <ItemsFilter />
+                <ItemsFilter
+                  closeFilter={closeFilter}
+                  onApplyFilter={handleApplyFilter}
+                />
               </ExtendedView>
             </TouchableWithoutFeedback>
           </Modal>
@@ -97,4 +104,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
 export default ProductsPage;

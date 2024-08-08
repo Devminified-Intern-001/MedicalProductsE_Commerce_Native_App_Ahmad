@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { ExtendedText, ExtendedView } from "../../atoms";
 import React from "react";
 
@@ -8,21 +8,38 @@ interface UiFlexText {
   titleStyle?: object;
   flexContainer?: object;
   textValueStyle?: object;
+  onTitlePress?: () => void;
+  onTextValuePress?: () => void;
 }
 
 const CustomFlexText: React.FC<UiFlexText> = (props) => {
-  const { title, textValue, titleStyle, flexContainer, textValueStyle } = props;
+  const {
+    title,
+    textValue,
+    titleStyle,
+    flexContainer,
+    textValueStyle,
+    onTitlePress,
+    onTextValuePress,
+  } = props;
+
   return (
     <ExtendedView style={[styles.cardTitle, flexContainer]}>
-      <ExtendedText style={[styles.titleText, titleStyle]}>
-        {title}
-      </ExtendedText>
-      {React.isValidElement(textValue) ? (
-        textValue
-      ) : (
-        <ExtendedText style={[styles.elementStyle, textValueStyle]}>
-          {textValue}
+      <TouchableOpacity onPress={onTitlePress} activeOpacity={0.7}>
+        <ExtendedText style={[styles.titleText, titleStyle]}>
+          {title}
         </ExtendedText>
+      </TouchableOpacity>
+      {React.isValidElement(textValue) ? (
+        <TouchableOpacity onPress={onTextValuePress} activeOpacity={0.7}>
+          {textValue}
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={onTextValuePress} activeOpacity={0.7}>
+          <ExtendedText style={[styles.elementStyle, textValueStyle]}>
+            {textValue}
+          </ExtendedText>
+        </TouchableOpacity>
       )}
     </ExtendedView>
   );

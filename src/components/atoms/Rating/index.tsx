@@ -5,28 +5,24 @@ import ExtendedView from "../View";
 
 interface UiRatingProps extends TapRatingProps {
   title?: string;
+  avgRating: number;
 }
 
 const ExtendedRating: React.FC<UiRatingProps> = (props) => {
-  const { ...rest } = props;
-  const [currentRating, setCurrentRating] = React.useState(0);
-
-  const ratingCompleted = (rating: number) => {
-    setCurrentRating(rating);
-    console.log("Rating is: " + rating);
-  };
+  const { avgRating, ...rest } = props;
 
   return (
     <ExtendedView style={styles.container}>
       <Rating
-        onFinishRating={ratingCompleted}
+        startingValue={avgRating}
+        readonly
         style={styles.rating}
         fractions={1}
         imageSize={20}
         ratingBackgroundColor="transparent"
         {...rest}
       />
-      <Text style={styles.ratingValue}>({currentRating.toFixed(1)}/5)</Text>
+      <Text style={styles.ratingValue}> {avgRating}</Text>
     </ExtendedView>
   );
 };
